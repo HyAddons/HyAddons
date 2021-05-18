@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = HyAddons.MODID, name = HyAddons.MODNAME, version = HyAddons.VERSION, clientSideOnly = true)
 public class HyAddons {
-    public static final String MODID = "@MODID@";
-    public static final String MODNAME = "@MODNAME@";
+    public static final String MODID = "hyaddons";
+    public static final String MODNAME = "HyAddons";
     public static final String VERSION = "@VERSION@";
 
     private final Config config = new Config();
