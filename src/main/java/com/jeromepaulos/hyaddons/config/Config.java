@@ -8,6 +8,7 @@ import java.io.File;
 
 public class Config extends Vigilant {
 
+    // Party Finder
     @Property(
             type = PropertyType.SWITCH,
             name = "Enable Party Finder Overlay",
@@ -15,7 +16,6 @@ public class Config extends Vigilant {
             category = "Party Finder"
     )
     public static boolean enablePartyFinder = false;
-
     @Property(
             type = PropertyType.SLIDER,
             name = "Minimum Catacombs Level",
@@ -26,7 +26,6 @@ public class Config extends Vigilant {
             max = 50
     )
     public static int minimumCatacombsLevel = 0;
-
     @Property(
             type = PropertyType.SWITCH,
             name = "Exclude Carries",
@@ -35,7 +34,6 @@ public class Config extends Vigilant {
             subcategory = "Filters"
     )
     public static boolean excludeCarries = true;
-
     @Property(
             type = PropertyType.SELECTOR,
             name = "Exclude Class",
