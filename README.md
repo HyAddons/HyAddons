@@ -1,4 +1,4 @@
-# HyAddons
+# HyAddons - best skybl0ck mod!!!1!
 
 [![Discord](https://img.shields.io/discord/838671302256361503?color=5865F2&label=discord)](https://discord.gg/bz3R9hWjD3)
 [![GitHub all releases](https://img.shields.io/github/downloads/jxxe/HyAddons/total)](https://github.com/jxxe/HyAddons/releases)
