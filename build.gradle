@@ -1,0 +1,49 @@
+
+// i have no idea what this does please help
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io/"
+        }
+    }
+    dependencies {
+        classpath "com.github.asbyth:ForgeGradle:86b2392"
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "0.1-BETA"
+group= "com.jeromepaulos.hyaddons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "HyAddons"
+
+minecraft {
+    version = "1.8.9-11.15.1.2318-1.8.9"
+    runDir = "run"
+    mappings = "stable_22"
+
+    replace "@VERSION@": project.version
+}
+
+dependencies {
+    provided files("libs/modcore.jar")
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

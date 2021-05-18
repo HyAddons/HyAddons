@@ -1,0 +1,13 @@
+[{
+    "modid": "hyaddons",
+    "name": "HyAddons",
+    "description": "Useful features for Hypixel SkyBlock",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/jxxe/HyAddons",
+    "updateUrl": "",
+    "authorList": ["HY7"],
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+}]
