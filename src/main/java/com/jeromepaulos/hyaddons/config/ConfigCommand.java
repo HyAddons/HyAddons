@@ -1,6 +1,5 @@
 package com.jeromepaulos.hyaddons.config;
 
-import club.sk1er.mods.core.ModCore;
 import com.jeromepaulos.hyaddons.HyAddons;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -26,7 +25,7 @@ public class ConfigCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        ModCore.getInstance().getGuiHandler().open(HyAddons.INSTANCE.getConfig().gui());
+        HyAddons.guiToOpen = HyAddons.config.gui();
     }
 
     @Override
