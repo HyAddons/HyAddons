@@ -2,6 +2,7 @@ package com.jeromepaulos.hyaddons.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -12,6 +13,13 @@ public class Utils {
 
     public static String removeFormatting(String input) {
         return input.replaceAll("[§|&][0-9,a-f,k-o,r]", "");
+    }
+
+    public static void displayMessage(String message) {
+        if(!message.contains("§")) {
+            message = message.replace("&", "§");
+        }
+        mc.thePlayer.addChatMessage(new ChatComponentText(message));
     }
 
     @SubscribeEvent
