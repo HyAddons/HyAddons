@@ -5,14 +5,19 @@
 
 HyAddons is a lightweight Forge mod with useful features for Hypixel SkyBlock!
 
-## Dungeons
 * Party Finder Overlay
   * Hide Unjoinable Parties
   * Hide Parties w/ Duplicate Classes
   * Minimum Catacombs Requirement
-
-## Miscelleanous
 * Bridge Chat Formatter
+* Preview Blank Cake Soul Owner
+* Pet Overlay
+  * Level Progress
+* Chat Spam Hiders
+  * Guild Join/Leave Messages
+  * Friend Join/Leave Messages
+  * Pickaxe Ability Messages
+* Show SkyBlock ID
   
 ## Coming Soon
 These features are coming soon to the Forge mod, but many of them are already available in the [ChatTriggers module](https://chattriggers.com/modules/v/HyAddons). Join the [Discord](https://discord.gg/bz3R9hWjD3) server to suggest your own ideas and be notified of new releases.
