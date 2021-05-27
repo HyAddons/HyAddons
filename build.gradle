@@ -19,7 +19,7 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.2-BETA"
+version = "0.3-BETA"
 group= "com.jeromepaulos.hyaddons"
 archivesBaseName = "HyAddons"
 
@@ -34,6 +34,7 @@ minecraft {
 dependencies {
     provided files("libs/modcore.jar")
     implementation("club.sk1er:Vigilance:104-10809-SNAPSHOT")
+    // implementation("gg.essential:Vigilance:112-10809-SNAPSHOT")
 }
 
 shadowJar {

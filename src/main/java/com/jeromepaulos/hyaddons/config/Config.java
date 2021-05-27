@@ -13,9 +13,10 @@ import java.util.Comparator;
 
 public class Config extends Vigilant {
 
+    // General
     @Property(
             type = PropertyType.BUTTON,
-            name = "&f&lHyAddons &r&7by HY7",
+            name = "Have an idea? Need support?",
             description = "https://discord.gg/bz3R9hWjD3",
             category = "General",
             placeholder = "Join Discord"
@@ -23,6 +24,24 @@ public class Config extends Vigilant {
     public static void openDiscord() throws URISyntaxException, IOException {
         Desktop.getDesktop().browse(new URI("https://discord.gg/bz3R9hWjD3"));
     }
+
+    // Miscellaneous
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Show SkyBlock ID",
+            description = "Requires advanced tooltips to be enabled (F3+H)",
+            category = "Miscellaneous",
+            subcategory = "Tools"
+    )
+    public static boolean showSkyBlockId = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Show Cake Soul Owner",
+            description = "Shows the owner of the cake a soul was obtained from",
+            category = "Miscellaneous",
+            subcategory = "Tools"
+    )
+    public static boolean showCakeSoulOwner = false;
 
     // Party Finder
     @Property(
@@ -59,6 +78,30 @@ public class Config extends Vigilant {
             options = {"Disabled", "Archer", "Berserker", "Healer", "Mage", "Tank"}
     )
     public static int excludeClass = 0;
+    @Property(
+            type = PropertyType.COLOR,
+            name = "Included Party Color",
+            description = "Defaults to green",
+            category = "Party Finder",
+            subcategory = "Appearance"
+    )
+    public static Color includedPartyColor = new Color(0,170,0);
+    @Property(
+            type = PropertyType.COLOR,
+            name = "Excluded Party Color",
+            description = "Defaults to red",
+            category = "Party Finder",
+            subcategory = "Appearance"
+    )
+    public static Color excludedPartyColor = new Color(170,0,0);
+    @Property(
+            type = PropertyType.COLOR,
+            name = "Other Party Color",
+            description = "Defaults to orange",
+            category = "Party Finder",
+            subcategory = "Appearance"
+    )
+    public static Color otherPartyColor = new Color(187, 123, 2);
 
     // Chat Bridge
     @Property(
@@ -94,6 +137,57 @@ public class Config extends Vigilant {
             subcategory = "Appearance"
     )
     public static int bridgePrefix = 0;
+
+    // Pet Overlay
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Pet Overlay",
+            description = "Shows information about your current pet on screen",
+            category = "Pet Overlay"
+    )
+    public static boolean petOverlay = false;
+    @Property(
+            type = PropertyType.SLIDER,
+            name = "Taming Level",
+            description = "Open your skills menu to set it automatically",
+            category = "Pet Overlay",
+            subcategory = "Configuration",
+            max = 50
+    )
+    public static int tamingLevel = 0;
+    @Property(
+            type = PropertyType.TEXT,
+            name = "Current Pet",
+            category = "Pet Overlay",
+            hidden = true
+    ) // Hidden field used to store currently active pet
+    public static String currentPet = "";
+
+    // Spam Hider
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Hide Guild Join/Leave Messages",
+            description = "&2Guild > &bHY7 &ejoined.",
+            category = "Spam Hider",
+            subcategory = "Hypixel"
+    )
+    public static boolean guildJoinLeaveMessages = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Hide Friend Join/Leave Messages",
+            description = "&aFriend > &bHY7 &eleft.",
+            category = "Spam Hider",
+            subcategory = "Hypixel"
+    )
+    public static boolean friendJoinLeaveMessages = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Hide Pickaxe Ability Messages",
+            description = "&6Mining Speed Boost &ais now available!",
+            category = "Spam Hider",
+            subcategory = "Hypixel"
+    )
+    public static boolean pickaxeAbilityMessages = false;
 
     public static class ConfigSorting extends SortingBehavior {
         @NotNull @Override
