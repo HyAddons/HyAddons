@@ -22,10 +22,6 @@ public class PartyFinder {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
 
-    private static final Color redColor = new Color(170,0,0);
-    private static final Color greenColor = new Color(0,170,0);
-    private static final Color orangeColor = new Color(187, 123, 2);
-
     private Set<Slot> excludedParties = new HashSet<Slot>();
     private Set<Slot> includedParties = new HashSet<Slot>();
     private Set<Slot> otherParties = new HashSet<Slot>();
@@ -117,9 +113,9 @@ public class PartyFinder {
                         }
                     }
 
-                    for(Slot slot : excludedParties) highlightSlot(slot, guiChest, redColor, 260);
-                    for(Slot slot : otherParties) highlightSlot(slot, guiChest, orangeColor, 120);
-                    for(Slot slot : includedParties) highlightSlot(slot, guiChest, greenColor, 120);
+                    for(Slot slot : excludedParties) highlightSlot(slot, guiChest, Config.excludedPartyColor, 260);
+                    for(Slot slot : otherParties) highlightSlot(slot, guiChest, Config.otherPartyColor, 120);
+                    for(Slot slot : includedParties) highlightSlot(slot, guiChest, Config.includedPartyColor, 120);
                 }
             }
         }
