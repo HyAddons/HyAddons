@@ -27,7 +27,7 @@ public class ChatBridge {
                         String[] prefixes = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]"};
 
                         String replacementMessage = "&2Guild > &" + colors[Config.bridgeMessageColor] + prefixes[Config.bridgePrefix] + " " + matcher.group(2) + "&f: " + matcher.group(3);
-                        Utils.displayMessage(replacementMessage);
+                        Utils.sendMessage(replacementMessage);
                     }
                 }
             }
