@@ -2,8 +2,7 @@ package com.jeromepaulos.hyaddons;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.config.ConfigCommand;
-import com.jeromepaulos.hyaddons.features.ChatBridge;
-import com.jeromepaulos.hyaddons.features.PartyFinder;
+import com.jeromepaulos.hyaddons.features.*;
 import com.jeromepaulos.hyaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -35,7 +34,11 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
         MinecraftForge.EVENT_BUS.register(new ChatBridge());
+        MinecraftForge.EVENT_BUS.register(new SpamHider());
         MinecraftForge.EVENT_BUS.register(new Utils());
+        MinecraftForge.EVENT_BUS.register(new PetOverlay());
+        MinecraftForge.EVENT_BUS.register(new DevTools());
+        MinecraftForge.EVENT_BUS.register(new CakeSoul());
 
         config = new Config();
         config.preload();
