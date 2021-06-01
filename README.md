@@ -12,11 +12,15 @@ HyAddons is a lightweight Forge mod with useful features for Hypixel SkyBlock!
 * Bridge Chat Formatter
 * Preview Blank Cake Soul Owner
 * Pet Overlay
-  * Level Progress
+  * ~~Level Progress~~
+  * Autopet Support
 * Chat Spam Hiders
   * Guild Join/Leave Messages
   * Friend Join/Leave Messages
   * Pickaxe Ability Messages
 * Show SkyBlock ID
+* Voidgloom Seraph (Enderman Slayer) Features
+  * Show Hits Remaining in Shield Under Crosshair
+  * Highlight Thrown Beacons
   
 Join the [Discord](https://discord.gg/bz3R9hWjD3) server to get help and suggest new features!
