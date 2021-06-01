@@ -189,6 +189,38 @@ public class Config extends Vigilant {
     )
     public static boolean pickaxeAbilityMessages = false;
 
+    // Voidgloom Seraph
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Highlight Beacons",
+            description = "Highlight nearby beacons placed by a Voidgloom Seraph",
+            category = "Voidgloom Seraph"
+    )
+    public static boolean highlightVoidgloomBeacons = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Show Shield Hits",
+            description = "Show the hits required to break the boss' shield under your crosshair",
+            category = "Voidgloom Seraph"
+    )
+    public static boolean showVoidgloomHits = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Ignore Other Bosses",
+            description = "Only activate features when &oyour &rboss is alive",
+            category = "Voidgloom Seraph"
+    )
+    public static boolean ignoreOtherVoidgloom = true;
+    @Property(
+            type = PropertyType.SLIDER,
+            name = "Boss Search Radius",
+            description = "Set the distance to search for beacons and bosses\nCan degrade performance and usefulness at high values",
+            category = "Voidgloom Seraph",
+            min = 5,
+            max = 40
+    )
+    public static int voidgloomSearchRadius = 20;
+
     public static class ConfigSorting extends SortingBehavior {
         @NotNull @Override
         public Comparator<Category> getCategoryComparator() {

@@ -39,6 +39,7 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new PetOverlay());
         MinecraftForge.EVENT_BUS.register(new DevTools());
         MinecraftForge.EVENT_BUS.register(new CakeSoul());
+        MinecraftForge.EVENT_BUS.register(new VoidgloomSeraph());
 
         config = new Config();
         config.preload();

@@ -31,7 +31,8 @@ public class PetOverlay {
     Pattern expBoostSkillRegex = Pattern.compile("Held Item: (.*) Exp.*Boost");
     Pattern petActionRegex = Pattern.compile("You (summoned|despawned) your (.*)!");
     Pattern petLevelUpRegex = Pattern.compile("Your (.*) levelled up to level (\\d{1,3})!");
-    Pattern expGainRegex = Pattern.compile(".*\\+([0-9,.]*) (Farming|Mining|Combat|Foraging|Fishing|Enchanting|Alchemy) \\(([0-9,.]*)/.*");
+    // Pattern expGainRegex = Pattern.compile(".*\\+([0-9,.]*) (Farming|Mining|Combat|Foraging|Fishing|Enchanting|Alchemy) \\(([0-9,.]*)/.*");
+    Pattern autoPetRegex = Pattern.compile("§cAutopet §eequipped your §7\\[Lvl (\\d{1,3})\\] (.*)§e! §a§lVIEW RULE§r");
 
     HashMap<String, Float> expLog = new HashMap<String, Float>() {{
         put("Farming", null);
@@ -62,8 +63,9 @@ public class PetOverlay {
         String type;
         String expBoostSkill;
         Float expBoostAmount;
+        String source;
 
-        public Pet(String name, Integer level, Float exp, String rarity, String type, String expBoostSkill, Float expBoostAmount) {
+        public Pet(String name, Integer level, Float exp, String rarity, String type, String expBoostSkill, Float expBoostAmount, String source) {
             this.name = name;
             this.level = level;
             this.exp = exp;
@@ -71,6 +73,7 @@ public class PetOverlay {
             this.type = type;
             this.expBoostSkill = expBoostSkill;
             this.expBoostAmount = expBoostAmount;
+            this.source = source;
         }
 
         @Override
@@ -108,9 +111,11 @@ public class PetOverlay {
                     if(slot.getHasStack() && slot.getStack().getDisplayName() != null) {
                         String itemName = Utils.removeFormatting(slot.getStack().getDisplayName());
                         if(itemName.contains("Taming")) {
-                            Config.tamingLevel = Integer.parseInt(itemName.replace("Taming ", ""));
-                            HyAddons.config.markDirty();
-                            HyAddons.config.writeData();
+                            try {
+                                Config.tamingLevel = Integer.parseInt(itemName.replace("Taming ", ""));
+                                HyAddons.config.markDirty();
+                                HyAddons.config.writeData();
+                            } catch(Exception ignored) {}
                         }
                     }
                 }
@@ -125,16 +130,20 @@ public class PetOverlay {
                 String petName = "No pet equipped!";
 
                 if(Config.tamingLevel == 0) {
-                    petName = "Type /skills to add taming level";
+                    petName = "Type /hyaddons to add taming level";
                 } else {
                     if(currentPet != null) {
-                        if(currentPet.level == 100) {
+                        petName = EnumChatFormatting.GRAY+"[Lvl "+currentPet.level+"] "+currentPet.name;
+
+                        /*if(currentPet.level == 100) {
                             petName = EnumChatFormatting.GRAY+"[Lvl "+currentPet.level+"] "+currentPet.name;
+                        } else if(currentPet.source.equals("autopet")) {
+                            petName = EnumChatFormatting.GRAY+"[Lvl "+currentPet.level+"] "+currentPet.name+EnumChatFormatting.DARK_GRAY+" (auto)";
                         } else {
                             int levelExp = petExpTable.get(currentPet.rarity)[currentPet.level];
                             String currentPetPercent = Math.round((currentPet.exp/levelExp*100F)*100F)/100F + "%";
                             petName = EnumChatFormatting.GRAY+"[Lvl "+currentPet.level+"] "+currentPet.name+" "+EnumChatFormatting.WHITE+currentPetPercent;
-                        }
+                        }*/
                     }
                 }
 
@@ -221,7 +230,8 @@ public class PetOverlay {
                             rarity,
                             type,
                             expBoostSkill,
-                            expBoostAmount
+                            expBoostAmount,
+                            "equip"
                     );
                 }
             }
@@ -230,12 +240,13 @@ public class PetOverlay {
 
     @SubscribeEvent
     public void onChatEvent(ClientChatReceivedEvent event) {
-        if(Utils.inSkyBlock) {
-            String message = Utils.removeFormatting(event.message.getUnformattedText());
+        if(Utils.inSkyBlock && event != null && event.message != null) {
+            String message = event.message.getUnformattedText();
 
             if(event.type == 0) {
                 Matcher petActionMatcher = petActionRegex.matcher(message);
                 Matcher petLevelUpMatcher = petLevelUpRegex.matcher(message);
+                Matcher autoPetMatcher = autoPetRegex.matcher(event.message.getFormattedText());
 
                 if(petActionMatcher.matches()) {
                     if(petActionMatcher.group(1).equals("summoned")) {
@@ -252,44 +263,58 @@ public class PetOverlay {
                         currentPet.level = Integer.parseInt(petLevelUpMatcher.group(2));
                         currentPet.exp = 0F;
                     }
+                } else if(autoPetMatcher.matches()) {
+                    currentPet = new Pet(
+                            autoPetMatcher.group(2),
+                            Integer.parseInt(autoPetMatcher.group(1)),
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            "autopet"
+                    );
+                    savePet();
                 }
-            } else if(event.type == 2) {
-                Matcher expGainMatcher = expGainRegex.matcher(message);
-                if(expGainMatcher.matches()) {
-                    String type = expGainMatcher.group(2);
-                    Float currentAmount = Float.parseFloat(expGainMatcher.group(3).replace(",", ""));
-                    Float amountGained = Float.parseFloat(expGainMatcher.group(1).replace(",", ""));
+            } /*else if(event.type == 2) {
+                if(currentPet != null && !currentPet.source.equals("autopet")) {
+                    Matcher expGainMatcher = expGainRegex.matcher(message);
+                    if(expGainMatcher.matches()) {
+                        String type = expGainMatcher.group(2);
+                        Float currentAmount = Float.parseFloat(expGainMatcher.group(3).replace(",", ""));
+                        Float amountGained = Float.parseFloat(expGainMatcher.group(1).replace(",", ""));
 
-                    if(expLog.get(type) == null) {
-                        expLog.replace(type, currentAmount-amountGained);
-                    }
-
-                    if(!expLog.get(type).equals(currentAmount)) {
-                        if(currentPet.type.equals(type)) { // full xp
-                            if(currentPet.expBoostSkill.equals(type) || currentPet.expBoostSkill.equals("All Skills")) { // boosted xp
-                                currentPet.exp += (currentAmount - expLog.get(type)) * (1 + Config.tamingLevel/100F) * currentPet.expBoostAmount;
-                            } else { // unboosted xp
-                                currentPet.exp += (currentAmount - expLog.get(type)) * (1 + Config.tamingLevel/100F);
-                            }
-                        } else if(type.equals("Alchemy") || type.equals("Enchanting")) { // 1/12 xp
-                            if(currentPet.expBoostSkill.equals(type) || currentPet.expBoostSkill.equals("All Skills")) { // boosted xp
-                                currentPet.exp += (currentAmount - expLog.get(type))/12 * (1 + Config.tamingLevel/100F) * currentPet.expBoostAmount;
-                            } else { // unboosted xp
-                                currentPet.exp += (currentAmount - expLog.get(type))/12 * (1 + Config.tamingLevel/100F);
-                            }
-                        } else { // 1/4 xp
-                            if(currentPet.expBoostSkill.equals(type) || currentPet.expBoostSkill.equals("All Skills")) { // boosted xp
-                                currentPet.exp += (currentAmount - expLog.get(type))/4 * (1 + Config.tamingLevel/100F) * currentPet.expBoostAmount;
-                            } else { // unboosted xp
-                                currentPet.exp += (currentAmount - expLog.get(type))/4 * (1 + Config.tamingLevel/100F);
-                            }
+                        if(expLog.get(type) == null) {
+                            expLog.replace(type, currentAmount-amountGained);
                         }
 
-                        expLog.replace(type, currentAmount);
-                        savePet();
+                        if(!expLog.get(type).equals(currentAmount)) {
+                            if(currentPet.type.equals(type)) { // full xp
+                                if(currentPet.expBoostSkill.equals(type) || currentPet.expBoostSkill.equals("All Skills")) { // boosted xp
+                                    currentPet.exp += (currentAmount - expLog.get(type)) * (1 + Config.tamingLevel/100F) * currentPet.expBoostAmount;
+                                } else { // unboosted xp
+                                    currentPet.exp += (currentAmount - expLog.get(type)) * (1 + Config.tamingLevel/100F);
+                                }
+                            } else if(type.equals("Alchemy") || type.equals("Enchanting")) { // 1/12 xp
+                                if(currentPet.expBoostSkill.equals(type) || currentPet.expBoostSkill.equals("All Skills")) { // boosted xp
+                                    currentPet.exp += (currentAmount - expLog.get(type))/12 * (1 + Config.tamingLevel/100F) * currentPet.expBoostAmount;
+                                } else { // unboosted xp
+                                    currentPet.exp += (currentAmount - expLog.get(type))/12 * (1 + Config.tamingLevel/100F);
+                                }
+                            } else { // 1/4 xp
+                                if(currentPet.expBoostSkill.equals(type) || currentPet.expBoostSkill.equals("All Skills")) { // boosted xp
+                                    currentPet.exp += (currentAmount - expLog.get(type))/4 * (1 + Config.tamingLevel/100F) * currentPet.expBoostAmount;
+                                } else { // unboosted xp
+                                    currentPet.exp += (currentAmount - expLog.get(type))/4 * (1 + Config.tamingLevel/100F);
+                                }
+                            }
+
+                            expLog.replace(type, currentAmount);
+                            savePet();
+                        }
                     }
                 }
-            }
+            }*/
         }
 
     }

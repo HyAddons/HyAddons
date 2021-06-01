@@ -7,9 +7,12 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.List;
+
 public class Utils {
     private static final Minecraft mc = Minecraft.getMinecraft();
     public static boolean inSkyBlock = false;
+    public static boolean inDungeon = false;
 
     public static String removeFormatting(String input) {
         return input.replaceAll("[§|&][0-9a-fk-or]", "");
@@ -20,6 +23,19 @@ public class Utils {
             message = message.replace("&", "§");
         }
         mc.thePlayer.addChatMessage(new ChatComponentText(message));
+    }
+
+    public static boolean scoreboardContains(String string) {
+        boolean result = false;
+        List<String> scoreboard = ScoreboardUtils.getSidebarLines();
+        for (String line : scoreboard) {
+            line = ScoreboardUtils.cleanSB(line);
+            if(line.contains(string)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     public static void sendModMessage(String message) {
@@ -43,6 +59,9 @@ public class Utils {
                     String scoreboardName = removeFormatting(scoreboardObj.getDisplayName());
                     inSkyBlock = scoreboardName.contains("SKYBLOCK");
                 }
+
+                inDungeon = inSkyBlock && scoreboardContains("The Catacombs");
+
                 ticks = 0;
             }
             ticks++;
