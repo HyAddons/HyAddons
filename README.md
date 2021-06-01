@@ -5,7 +5,7 @@
 
 HyAddons is a lightweight Forge mod with useful features for Hypixel SkyBlock!
 
-* Party Finder Overlay
+* Party Finder Overlay (NEU breaks this just a little bit)
   * Hide Unjoinable Parties
   * Hide Parties w/ Duplicate Classes
   * Minimum Catacombs Requirement
