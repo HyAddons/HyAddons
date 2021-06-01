@@ -23,6 +23,7 @@ public class VoidgloomSeraph {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
     private static boolean inSepulture = false;
+    private static boolean questActive = false;
     private static boolean activateFeatures = false;
 
     private static BlockPos beacon = null;
@@ -57,8 +58,7 @@ public class VoidgloomSeraph {
     public void onTick(TickEvent.ClientTickEvent event) {
         if(Utils.inSkyBlock) {
             inSepulture = Utils.scoreboardContains("Void Sepulture");
-            boolean questActive = Utils.scoreboardContains("Voidgloom Seraph");
-
+            questActive = Utils.scoreboardContains("Voidgloom Seraph");
             if(Config.ignoreOtherVoidgloom) {
                 // only active if your boss is alive
                 activateFeatures = questActive && Utils.scoreboardContains("Slay the boss!");
