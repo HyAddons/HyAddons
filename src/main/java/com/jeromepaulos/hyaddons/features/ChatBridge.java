@@ -24,7 +24,7 @@ public class ChatBridge {
                         event.setCanceled(true);
 
                         char[] colors = {'1', '2', '3', '4', '5', '6', 'f', '7', '9', 'a', 'b', 'c', 'd', 'e'};
-                        String[] prefixes = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]"};
+                        String[] prefixes = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]", "[BOT]"};
 
                         String replacementMessage = "&2Guild > &" + colors[Config.bridgeMessageColor] + prefixes[Config.bridgePrefix] + " " + matcher.group(2) + "&f: " + matcher.group(3);
                         Utils.sendMessage(replacementMessage);

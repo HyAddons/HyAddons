@@ -49,6 +49,17 @@ public class Utils {
         gui.displayTitle(null, null, fade, ticks, fade);
     }
 
+    public static boolean listContainsString(Iterable<String> list, String string) {
+        boolean contains = false;
+        for(String item : list) {
+            if(item.contains(string)) {
+                contains = true;
+                break;
+            }
+        }
+        return contains;
+    }
+
     private static int ticks = 0;
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {

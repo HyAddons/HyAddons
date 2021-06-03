@@ -160,7 +160,7 @@ public class PetOverlay {
 
             if(inventoryName.equals("Pets") || inventoryName.endsWith(") Pets")) {
                 List<String> lore = event.toolTip;
-                if(lore.get(lore.size() - 1).contains("Click to summon")) {
+                if(Utils.listContainsString(lore, "Click to summon")) {
                     ItemStack item = event.itemStack;
                     String name = item.getDisplayName();
 

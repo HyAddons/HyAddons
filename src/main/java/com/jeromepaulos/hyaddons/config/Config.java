@@ -132,7 +132,7 @@ public class Config extends Vigilant {
             type = PropertyType.SELECTOR,
             name = "Bridge Message Prefix",
             description = "Choose a prefix for the formatted message",
-            options = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]"},
+            options = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]", "[BOT]"},
             category = "Chat Bridge",
             subcategory = "Appearance"
     )
@@ -185,7 +185,7 @@ public class Config extends Vigilant {
             name = "Hide Pickaxe Ability Messages",
             description = "&6Mining Speed Boost &ais now available!",
             category = "Spam Hider",
-            subcategory = "Hypixel"
+            subcategory = "SkyBlock"
     )
     public static boolean pickaxeAbilityMessages = false;
 
@@ -199,22 +199,22 @@ public class Config extends Vigilant {
     public static boolean highlightVoidgloomBeacons = false;
     @Property(
             type = PropertyType.SWITCH,
-            name = "Show Shield Hits",
-            description = "Show the hits required to break the boss' shield under your crosshair",
+            name = "Highlight Nukekubi Fixation Heads",
+            description = "Highlight floating heads summoned by a Voidgloom Seraph",
             category = "Voidgloom Seraph"
     )
-    public static boolean showVoidgloomHits = false;
+    public static boolean highlightVoidgloomSkulls = false;
     @Property(
             type = PropertyType.SWITCH,
             name = "Ignore Other Bosses",
-            description = "Only activate features when &oyour &rboss is alive",
+            description = "Only activate features when &oyour&r boss is alive",
             category = "Voidgloom Seraph"
     )
     public static boolean ignoreOtherVoidgloom = true;
     @Property(
             type = PropertyType.SLIDER,
             name = "Boss Search Radius",
-            description = "Set the distance to search for beacons and bosses\nCan degrade performance and usefulness at high values",
+            description = "Set the distance to search for beacons and bosses\nMay degrade performance and usefulness at high values",
             category = "Voidgloom Seraph",
             min = 5,
             max = 40
