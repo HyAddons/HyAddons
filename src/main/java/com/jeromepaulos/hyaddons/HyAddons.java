@@ -3,6 +3,7 @@ package com.jeromepaulos.hyaddons;
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.config.ConfigCommand;
 import com.jeromepaulos.hyaddons.features.*;
+import com.jeromepaulos.hyaddons.updates.Analytics;
 import com.jeromepaulos.hyaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -10,6 +11,7 @@ import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -23,6 +25,7 @@ public class HyAddons {
     public static Config config;
     public static GuiScreen guiToOpen = null;
     private static final Minecraft mc = Minecraft.getMinecraft();
+    public static String update = null;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -40,9 +43,19 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new DevTools());
         MinecraftForge.EVENT_BUS.register(new CakeSoul());
         MinecraftForge.EVENT_BUS.register(new VoidgloomSeraph());
+        MinecraftForge.EVENT_BUS.register(new DungeonCooldowns());
+        MinecraftForge.EVENT_BUS.register(new NecronPhases());
+        // MinecraftForge.EVENT_BUS.register(new Updater());
 
         config = new Config();
         config.preload();
+    }
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        new Analytics();
+        // new Updater();
+        PetOverlay.loadPet();
     }
 
     @SubscribeEvent

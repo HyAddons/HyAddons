@@ -41,12 +41,15 @@ public class Utils {
     public static void sendModMessage(String message) {
         sendMessage("&dHyAddons > &f" + message);
     }
+    public static void sendDebugMessage(String message) {
+        sendMessage("&dHyAddons Debug > &f" + message);
+    }
 
-    public static void displayTitle(String title, String subtitle, int ticks, int fade) {
+    public static void displayTitle(String title, String subtitle, int ticks) {
         GuiIngame gui = mc.ingameGUI;
-        gui.displayTitle(title, null, fade, ticks, fade);
-        gui.displayTitle(null, subtitle, fade, ticks, fade);
-        gui.displayTitle(null, null, fade, ticks, fade);
+        gui.displayTitle(title, null, 0, ticks, 0);
+        gui.displayTitle(null, subtitle, 0, ticks, 0);
+        gui.displayTitle(null, null, 0, ticks, 0);
     }
 
     public static boolean listContainsString(Iterable<String> list, String string) {

@@ -5,17 +5,21 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-/**
- * Heavily inspired by code from Danker's Skyblock Mod, used under GPL 3.0 license
- * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
- * @author bowser0000
- */
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfigCommand extends CommandBase {
 
     @Override
     public String getCommandName() {
         return "hyaddons";
+    }
+
+    @Override
+    public List<String> getCommandAliases() {
+        return new ArrayList<String>() {{
+            add("hy");
+        }};
     }
 
     @Override

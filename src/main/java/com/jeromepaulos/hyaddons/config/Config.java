@@ -25,6 +25,32 @@ public class Config extends Vigilant {
         Desktop.getDesktop().browse(new URI("https://discord.gg/bz3R9hWjD3"));
     }
 
+    // Dungeons
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Explosive Shot Cooldown",
+            description = "Display a cooldown timer for your explosive shot under the crosshair",
+            category = "Dungeons",
+            subcategory = "Cooldowns"
+    )
+    public static boolean explosiveShotCooldown = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Seismic Wave Cooldown",
+            description = "Display a cooldown timer for the seismic wave ability under your crosshair",
+            category = "Dungeons",
+            subcategory = "Cooldowns"
+    )
+    public static boolean seismicWaveCooldown = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Necron Phase Announcements",
+            description = "Display a DSM-like title on screen for each phase",
+            category = "Dungeons",
+            subcategory = "Floor 7"
+    )
+    public static boolean necronPhaseAnnouncements = false;
+
     // Miscellaneous
     @Property(
             type = PropertyType.SWITCH,

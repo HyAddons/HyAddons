@@ -19,7 +19,7 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.5-BETA"
+version = "0.6-BETA"
 group= "com.jeromepaulos.hyaddons"
 archivesBaseName = "HyAddons"
 
