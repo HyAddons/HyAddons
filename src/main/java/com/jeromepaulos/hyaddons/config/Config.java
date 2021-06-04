@@ -2,13 +2,11 @@ package com.jeromepaulos.hyaddons.config;
 
 import club.sk1er.vigilance.Vigilant;
 import club.sk1er.vigilance.data.*;
+import com.jeromepaulos.hyaddons.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Comparator;
 
 public class Config extends Vigilant {
@@ -21,9 +19,17 @@ public class Config extends Vigilant {
             category = "General",
             placeholder = "Join Discord"
     )
-    public static void openDiscord() throws URISyntaxException, IOException {
-        Desktop.getDesktop().browse(new URI("https://discord.gg/bz3R9hWjD3"));
+    public static void openDiscord() {
+        Utils.openUrl("https://discord.gg/bz3R9hWjD3");
     }
+    @Property(
+            type = PropertyType.SELECTOR,
+            name = "Check for Updates",
+            description = "How should HyAddons check for updates?",
+            options = {"Disabled", "Latest", "Stable"},
+            category = "General"
+    )
+    public static int updateType = 2;
 
     // Dungeons
     @Property(
@@ -37,11 +43,19 @@ public class Config extends Vigilant {
     @Property(
             type = PropertyType.SWITCH,
             name = "Seismic Wave Cooldown",
-            description = "Display a cooldown timer for the seismic wave ability under your crosshair",
+            description = "Display a cooldown timer for your seismic wave under the crosshair",
             category = "Dungeons",
             subcategory = "Cooldowns"
     )
     public static boolean seismicWaveCooldown = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Wither Shield Cooldown",
+            description = "Display a cooldown timer for your wither shield under the crosshair",
+            category = "Dungeons",
+            subcategory = "Cooldowns"
+    )
+    public static boolean witherShieldCooldown = false;
     @Property(
             type = PropertyType.SWITCH,
             name = "Necron Phase Announcements",

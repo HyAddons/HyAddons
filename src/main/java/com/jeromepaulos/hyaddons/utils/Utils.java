@@ -7,6 +7,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.awt.*;
+import java.net.URI;
 import java.util.List;
 
 public class Utils {
@@ -16,6 +18,12 @@ public class Utils {
 
     public static String removeFormatting(String input) {
         return input.replaceAll("[§|&][0-9a-fk-or]", "");
+    }
+
+    public static void openUrl(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch(Exception ignored) {}
     }
 
     public static void sendMessage(String message) {

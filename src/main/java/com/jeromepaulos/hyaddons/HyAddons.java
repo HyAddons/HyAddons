@@ -3,11 +3,14 @@ package com.jeromepaulos.hyaddons;
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.config.ConfigCommand;
 import com.jeromepaulos.hyaddons.features.*;
-import com.jeromepaulos.hyaddons.updates.Analytics;
+import com.jeromepaulos.hyaddons.updates.UpdateGui;
+import com.jeromepaulos.hyaddons.updates.Updater;
 import com.jeromepaulos.hyaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -45,7 +48,6 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new VoidgloomSeraph());
         MinecraftForge.EVENT_BUS.register(new DungeonCooldowns());
         MinecraftForge.EVENT_BUS.register(new NecronPhases());
-        // MinecraftForge.EVENT_BUS.register(new Updater());
 
         config = new Config();
         config.preload();
@@ -53,8 +55,7 @@ public class HyAddons {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        new Analytics();
-        // new Updater();
+        new Updater();
         PetOverlay.loadPet();
     }
 
@@ -67,4 +68,12 @@ public class HyAddons {
             }
         }
     }
+
+    @SubscribeEvent
+    public void onGuiOpen(GuiOpenEvent event) {
+        if(update != null && event.gui.getClass() == GuiMainMenu.class) {
+            guiToOpen = new UpdateGui();
+        }
+    }
+
 }

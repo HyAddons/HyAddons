@@ -15,10 +15,12 @@ public class DungeonCooldowns {
     private static final Minecraft mc = Minecraft.getMinecraft();
 
     private static Long cdEndTime = null;
+    private static String cdSource = null;
 
-    private void displayCooldown(int duration) {
+    private void displayCooldown(String source, int duration) {
         duration += 1;
         cdEndTime = System.currentTimeMillis() + duration*1000L;
+        cdSource = source;
     }
 
     @SubscribeEvent
@@ -36,6 +38,7 @@ public class DungeonCooldowns {
                     mc.fontRendererObj.drawString(cdString, x, y, Color.WHITE.getRGB());
                 } else {
                     cdEndTime = null;
+                    cdSource = null;
                 }
             }
         }
@@ -43,23 +46,29 @@ public class DungeonCooldowns {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if(event.type == 0) {
-            String message = Utils.removeFormatting(event.message.getUnformattedText());
+        String message = Utils.removeFormatting(event.message.getUnformattedText());
 
+        if(event.type == 0) {
             switch(message) {
                 case "Used Explosive Shot!":
                     if(Config.explosiveShotCooldown && Utils.inDungeon) {
-                        displayCooldown(40);
+                        displayCooldown("Explosive Shot", 40);
                     }
 
                 case "Used Seismic Wave!":
                     if(Config.seismicWaveCooldown && Utils.inDungeon) {
                         if(mc.thePlayer.getHeldItem().getDisplayName().contains("Earth Shard")) {
-                            displayCooldown(13);
+                            displayCooldown("Seismic Wave", 13);
                         } else {
-                            displayCooldown(15);
+                            displayCooldown("Seismic Wave", 15);
                         }
                     }
+            }
+        } else if(event.type == 2) {
+            if(Config.witherShieldCooldown && message.contains("Wither Impact")) {
+                if(cdSource == null || !cdSource.equals("Wither Impact")) {
+                    displayCooldown("Wither Impact", 5);
+                }
             }
         }
     }
