@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.jeromepaulos.hyaddons.mixins",
+  "refmap": "mixins.hyaddons.refmap.json",
+  "mixins": [
+    "MixinRenderPlayer"
+  ]
+}

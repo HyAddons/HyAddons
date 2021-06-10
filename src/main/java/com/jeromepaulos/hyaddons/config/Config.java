@@ -64,6 +64,31 @@ public class Config extends Vigilant {
             subcategory = "Floor 7"
     )
     public static boolean necronPhaseAnnouncements = false;
+    @Property(
+            type = PropertyType.SELECTOR,
+            name = "Send Mimic Death Message",
+            description = "Detect and announce in party chat when the mimic is killed",
+            category = "Dungeons",
+            subcategory = "Miscellaneous",
+            options = {"Disabled", "Mimic killed!", "Mimic exorcised!", "Mimic demolished!", "Mimic vaporized!", "Mimic banished!"}
+    )
+    public static int mimicDeathMessage = 0;
+    /*@Property(
+            type = PropertyType.SWITCH,
+            name = "Tank Protection Vignette",
+            description = "Add a white vignette when you are under the protection of a tank",
+            category = "Dungeons",
+            subcategory = "Miscellaneous"
+    )*/
+    public static boolean tankVignette = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Boss Entry Warning",
+            description = "Warns if you are about to enter boss with an incomplete dungeon",
+            category = "Dungeons",
+            subcategory = "Miscellaneous"
+    )
+    public static boolean bossEntryWarning = false;
 
     // Miscellaneous
     @Property(
@@ -237,6 +262,13 @@ public class Config extends Vigilant {
             category = "Voidgloom Seraph"
     )
     public static boolean highlightVoidgloomBeacons = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Beacon Warning",
+            description = "Show a title when there is a beacon near you",
+            category = "Voidgloom Seraph"
+    )
+    public static boolean beaconWarningTitle = false;
     @Property(
             type = PropertyType.SWITCH,
             name = "Highlight Nukekubi Fixation Heads",

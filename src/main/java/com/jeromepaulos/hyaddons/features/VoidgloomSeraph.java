@@ -2,6 +2,7 @@ package com.jeromepaulos.hyaddons.features;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.utils.RenderUtils;
+import com.jeromepaulos.hyaddons.utils.ScoreboardUtils;
 import com.jeromepaulos.hyaddons.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -62,25 +64,27 @@ public class VoidgloomSeraph {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if(Utils.inSkyBlock) {
-            boolean inSepulture = Utils.scoreboardContains("Void Sepulture");
-            boolean questActive = Utils.scoreboardContains("Voidgloom Seraph");
+            boolean inSepulture = ScoreboardUtils.scoreboardContains("Void Sepulture");
+            boolean questActive = ScoreboardUtils.scoreboardContains("Voidgloom Seraph");
             if(Config.ignoreOtherVoidgloom) {
                 // only active if your boss is alive
-                activateFeatures = questActive && inSepulture && Utils.scoreboardContains("Slay the boss!");
+                activateFeatures = questActive && inSepulture && ScoreboardUtils.scoreboardContains("Slay the boss!");
             } else {
                 // active all the time
                 activateFeatures = inSepulture;
             }
 
             if(ticks % 4 == 0) {
-                if(activateFeatures) {
-                    if(Config.highlightVoidgloomBeacons) {
-                        findBeacon(Config.voidgloomSearchRadius);
-                    }
+                if(activateFeatures && Config.highlightVoidgloomBeacons) {
+                    findBeacon(Config.voidgloomSearchRadius);
                 }
                 ticks = 0;
             }
             ticks++;
+
+            if(Config.beaconWarningTitle && Config.highlightVoidgloomBeacons && activateFeatures && beacon != null) {
+                Utils.displayTitle(EnumChatFormatting.GREEN+"BEACON NEARBY", null, 1);
+            }
         } else {
             activateFeatures = false;
         }

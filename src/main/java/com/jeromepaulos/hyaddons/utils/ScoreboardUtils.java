@@ -65,4 +65,30 @@ public class ScoreboardUtils {
         return lines;
     }
 
+    public static boolean scoreboardContains(String string) {
+        boolean result = false;
+        List<String> scoreboard = getSidebarLines();
+        for (String line : scoreboard) {
+            line = cleanSB(line);
+            line = Utils.removeFormatting(line);
+            if(line.contains(string)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public static String getLineThatContains(String string) {
+        String result = null;
+        List<String> scoreboard = getSidebarLines();
+        for (String line : scoreboard) {
+            line = cleanSB(line);
+            if(line.contains(string)) {
+                result = line;
+                break;
+            }
+        }
+        return result;
+    }
 }

@@ -1,40 +1,57 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url = "https://maven.minecraftforge.net/" }
-        maven { url = "https://jitpack.io/" }
-    }
-    dependencies {
-        classpath "com.github.asbyth:ForgeGradle:86b2392"
-    }
-}
+// Definitely not "borrowed" from Skytils
 
 plugins {
+    id "net.minecraftforge.gradle.forge" version "6f5327"
     id "com.github.johnrengelman.shadow" version "6.1.0"
+    id "org.spongepowered.mixin" version "d5f9873d60"
 }
 
-repositories {
-    maven { url = "https://repo.sk1er.club/repository/maven-public/" }
-}
-
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-version = "1.0"
-group= "com.jeromepaulos.hyaddons"
+version = "pre1"
+group = "com.jeromepaulos.hyaddons"
 archivesBaseName = "HyAddons"
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
-    replace "@VERSION@": project.version
+    clientJvmArgs += "-Dfml.coreMods.load=com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin"
+    clientRunArgs += "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
+    clientRunArgs += "--mixin mixins.hyaddons.json"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spongepowered.org/repository/maven-public/" }
+    maven { url "https://repo.sk1er.club/repository/maven-public/" }
 }
 
 dependencies {
-    provided files("libs/modcore.jar")
+    implementation("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+        transitive = false
+    }
+
+    annotationProcessor("org.spongepowered:mixin:0.7.11-SNAPSHOT")
+
     implementation("club.sk1er:Vigilance:104-10809-SNAPSHOT")
-    // implementation("gg.essential:Vigilance:112-10809-SNAPSHOT")
+}
+
+jar {
+    manifest.attributes(
+            "FMLCorePlugin": "com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin",
+            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+            "TweakOrder": "0",
+            "MixinConfigs": "mixins.hyaddons.json",
+            "FMLCorePluginContainsFMLMod": true,
+            "ModSide": "CLIENT",
+            "ForceLoadAsMod": true
+    )
 }
 
 shadowJar {
@@ -55,7 +72,6 @@ shadowJar {
     exclude "com/jcraft/**"
     exclude "org/lwjgl/**"
     exclude "net/java/**"
-    exclude "club/sk1er/vigilance/example"
 
     exclude "META-INF/proguard/**"
     exclude "META-INF/maven/**"
@@ -64,17 +80,26 @@ shadowJar {
 }
 
 processResources {
+    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
-        expand "version":project.version, "mcversion":project.minecraft.version
+
+        // replace version and mcversion
+        expand "version": project.version, "mcversion": project.minecraft.version
     }
 
+    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude "mcmod.info"
     }
+}
+
+mixin {
+    add sourceSets.main, "mixins.hyaddons.refmap.json"
 }
 
 reobf {
@@ -86,7 +111,7 @@ reobf {
 
 sourceSets {
     main {
-        ext.refMap = "mixins.skytils.refmap.json"
+        ext.refMap = "mixins.hyaddons.refmap.json"
     }
 }
 

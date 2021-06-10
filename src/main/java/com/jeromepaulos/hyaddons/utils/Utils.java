@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.awt.*;
 import java.net.URI;
-import java.util.List;
 
 public class Utils {
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -31,19 +30,6 @@ public class Utils {
             message = message.replace("&", "§");
         }
         mc.thePlayer.addChatMessage(new ChatComponentText(message));
-    }
-
-    public static boolean scoreboardContains(String string) {
-        boolean result = false;
-        List<String> scoreboard = ScoreboardUtils.getSidebarLines();
-        for (String line : scoreboard) {
-            line = ScoreboardUtils.cleanSB(line);
-            if(line.contains(string)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
     }
 
     public static void sendModMessage(String message) {
@@ -82,7 +68,7 @@ public class Utils {
                     inSkyBlock = scoreboardName.contains("SKYBLOCK");
                 }
 
-                inDungeon = inSkyBlock && scoreboardContains("The Catacombs");
+                inDungeon = inSkyBlock && ScoreboardUtils.scoreboardContains("The Catacombs");
 
                 ticks = 0;
             }

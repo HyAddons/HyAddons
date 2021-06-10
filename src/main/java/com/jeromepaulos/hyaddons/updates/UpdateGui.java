@@ -36,7 +36,7 @@ public class UpdateGui extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawCustomBackground();
-        String title = "HyAddons "+EnumChatFormatting.LIGHT_PURPLE+"v"+HyAddons.update+EnumChatFormatting.WHITE+" is available!";
+        String title = "HyAddons "+EnumChatFormatting.LIGHT_PURPLE+HyAddons.update+EnumChatFormatting.WHITE+" is available!";
         int titleWidth = mc.fontRendererObj.getStringWidth(title);
         mc.fontRendererObj.drawStringWithShadow(
                 title,
