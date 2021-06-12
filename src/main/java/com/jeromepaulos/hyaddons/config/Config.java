@@ -73,13 +73,13 @@ public class Config extends Vigilant {
             options = {"Disabled", "Mimic killed!", "Mimic exorcised!", "Mimic demolished!", "Mimic vaporized!", "Mimic banished!"}
     )
     public static int mimicDeathMessage = 0;
-    /*@Property(
+    @Property(
             type = PropertyType.SWITCH,
             name = "Tank Protection Vignette",
             description = "Add a white vignette when you are under the protection of a tank",
             category = "Dungeons",
             subcategory = "Miscellaneous"
-    )*/
+    )
     public static boolean tankVignette = false;
     @Property(
             type = PropertyType.SWITCH,

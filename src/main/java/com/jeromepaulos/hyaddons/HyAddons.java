@@ -50,7 +50,7 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new NecronPhases());
         MinecraftForge.EVENT_BUS.register(new MimicDeath());
         MinecraftForge.EVENT_BUS.register(new DungeonWarning());
-        // MinecraftForge.EVENT_BUS.register(new DungeonVignette());
+        MinecraftForge.EVENT_BUS.register(new DungeonVignette());
         // MinecraftForge.EVENT_BUS.register(new NecromancySkins());
 
         config = new Config();

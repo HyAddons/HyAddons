@@ -24,6 +24,7 @@ public class DungeonVignette {
     private static final Minecraft mc = Minecraft.getMinecraft();
 
     public static boolean protectedByTank = false;
+    private static Double tankDistance = null;
     private static String tankUsername = null;
 
     @SubscribeEvent
@@ -41,9 +42,15 @@ public class DungeonVignette {
                     protectedByTank = false;
                 }
             } else if(mc.theWorld != null) {
-                EntityPlayer tank = mc.theWorld.getPlayerEntityByName(tankUsername);
-                if(tank != null) {
-                    protectedByTank = Math.round(Math.sqrt(Math.pow(mc.thePlayer.posX-tank.posX, 2) + Math.pow(mc.thePlayer.posY-tank.posY, 2) + Math.pow(mc.thePlayer.posZ-tank.posZ, 2))) <= 30;
+                String tankLine = ScoreboardUtils.getLineThatContains("[T]");
+                if(tankLine != null && tankLine.contains("DEAD")) {
+                    protectedByTank = false;
+                } else {
+                    EntityPlayer tank = mc.theWorld.getPlayerEntityByName(tankUsername);
+                    if(tank != null) {
+                        tankDistance = Math.sqrt(Math.pow(mc.thePlayer.posX-tank.posX, 2) + Math.pow(mc.thePlayer.posY-tank.posY, 2) + Math.pow(mc.thePlayer.posZ-tank.posZ, 2));
+                        protectedByTank = tankDistance <= 30;
+                    }
                 }
             } else {
                 tankUsername = null;
@@ -62,7 +69,11 @@ public class DungeonVignette {
         GlStateManager.depthMask(false);
         GlStateManager.tryBlendFuncSeparate(0, 769, 1, 0);
 
-        GlStateManager.color(1,0,1,0.5F);
+        float blendColor = 1;
+        if(tankDistance > 20 && tankDistance < 30) {
+            blendColor = (float) ((30-tankDistance)/10);
+        }
+        GlStateManager.color(blendColor,0,blendColor,0.5F);
 
         mc.getTextureManager().bindTexture(new ResourceLocation("textures/misc/vignette.png"));
         Tessellator tessellator = Tessellator.getInstance();
@@ -83,7 +94,7 @@ public class DungeonVignette {
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
         if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
-            if(Config.tankVignette && protectedByTank) {
+            if(Config.tankVignette && protectedByTank && mc.gameSettings.thirdPersonView == 0) {
                 renderVignette();
             }
         }
