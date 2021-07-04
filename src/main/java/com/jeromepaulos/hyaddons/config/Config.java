@@ -107,6 +107,14 @@ public class Config extends Vigilant {
             subcategory = "Tools"
     )
     public static boolean showCakeSoulOwner = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Short Party Transfer Command",
+            description = "Adds the /pt <ign> command, overrides the alias for /playtime",
+            category = "Miscellaneous",
+            subcategory = "Tools"
+    )
+    public static boolean shortPartyTransfer = false;
 
     // Party Finder
     @Property(

@@ -33,6 +33,7 @@ public class HyAddons {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         ClientCommandHandler.instance.registerCommand(new ConfigCommand());
+        ClientCommandHandler.instance.registerCommand(new PartyTransfer());
     }
 
     @Mod.EventHandler

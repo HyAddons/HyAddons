@@ -11,6 +11,8 @@ import java.util.Map;
 public class FMLLoadingPlugin implements IFMLLoadingPlugin {
 
     public FMLLoadingPlugin() {
+        System.out.println("loading mixins --------------------------");
+
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.hyaddons.json");
         MixinEnvironment.getCurrentEnvironment().setObfuscationContext("searge");

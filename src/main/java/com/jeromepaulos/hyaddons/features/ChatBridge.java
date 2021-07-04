@@ -16,11 +16,11 @@ public class ChatBridge {
             String message = Utils.removeFormatting(event.message.getUnformattedText());
 
             if(message.startsWith("Guild >")) {
-                Pattern regex = Pattern.compile("Guild > (?:\\\\[.*\\\\] )?(.*)(?: \\\\[.*\\\\])?: (.*): (.*)");
+                Pattern regex = Pattern.compile("Guild > (?:\\[.*\\] )?([a-zA-Z0-9_]*)(?: \\[.*\\])?: ([^:]*): (.*)");
                 Matcher matcher = regex.matcher(message);
 
                 if(matcher.find()) {
-                    if(matcher.group(1).contains(Config.bridgeBotUsername)) {
+                    if(matcher.group(1).equalsIgnoreCase(Config.bridgeBotUsername)) {
                         event.setCanceled(true);
 
                         char[] colors = {'1', '2', '3', '4', '5', '6', 'f', '7', '9', 'a', 'b', 'c', 'd', 'e'};

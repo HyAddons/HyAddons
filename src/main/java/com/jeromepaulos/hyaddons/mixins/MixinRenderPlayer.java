@@ -1,3 +1,4 @@
+/*
 package com.jeromepaulos.hyaddons.mixins;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -11,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(RenderPlayer.class)
 public abstract class MixinRenderPlayer {
 
-    @Inject(method="getEntityTexture", at=@At("HEAD"), cancellable = true)
+    @Inject(method="getEntityTexture", at=@At("HEAD"), cancellable=true, remap=false)
     public void getEntityTexture(AbstractClientPlayer player, CallbackInfoReturnable<ResourceLocation> cir) {
-        System.out.println("Does this work?");
-        cir.setReturnValue( new ResourceLocation("hyaddons:skin.png") );
+        System.out.println("Testing");
     }
 
 }
+*/
