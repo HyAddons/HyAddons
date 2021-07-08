@@ -1,6 +1,7 @@
 package com.jeromepaulos.hyaddons.tweaker;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -11,17 +12,15 @@ import java.util.Map;
 public class FMLLoadingPlugin implements IFMLLoadingPlugin {
 
     public FMLLoadingPlugin() {
-        System.out.println("loading mixins --------------------------");
-
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.hyaddons.json");
+        Mixins.addConfiguration("mixins.sre.json");
         MixinEnvironment.getCurrentEnvironment().setObfuscationContext("searge");
         MixinEnvironment.getCurrentEnvironment().setSide(MixinEnvironment.Side.CLIENT);
     }
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[0];
+        return new String[]{};
     }
 
     @Override
@@ -43,4 +42,5 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin {
     public String getAccessTransformerClass() {
         return null;
     }
+
 }

@@ -1,3 +1,5 @@
+// Definitely not "borrowed" from Skytils
+
 plugins {
     id "net.minecraftforge.gradle.forge" version "6f5327"
     id "com.github.johnrengelman.shadow" version "6.1.0"
@@ -18,10 +20,8 @@ minecraft {
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
+
     replace "@VERSION@": project.version
-    clientJvmArgs += "-Dfml.coreMods.load=com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin"
-    clientRunArgs += "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
-    clientRunArgs += "--mixin mixins.hyaddons.json"
 }
 
 repositories {
@@ -31,28 +31,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        transitive = false
-    }
-
-    annotationProcessor("org.spongepowered:mixin:0.7.11-SNAPSHOT")
-
     implementation("club.sk1er:Vigilance:104-10809-SNAPSHOT")
 }
 
 jar {
     manifest.attributes(
-            "Main-Class": "HyAddonsInstallerFrame",
-            "FMLCorePlugin": "com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin",
-            "FMLCorePluginContainsFMLMod": true,
-            "ForceLoadAsMod": true,
-            "MixinConfigs": "mixins.hyaddons.json",
-            "ModSide": "CLIENT",
-            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-            "TweakOrder": "0",
+            "ModSide": "CLIENT"
     )
-
-    enabled = false
 }
 
 shadowJar {
@@ -61,7 +46,7 @@ shadowJar {
 
     relocate("club.sk1er", "hyaddons.sk1er")
 
-    exclude "LICENSE.md"
+    exclude "LICENSE.txt"
     exclude "pack.mcmeta"
     exclude "dummyThing"
     exclude "**/module-info.class"
@@ -99,22 +84,10 @@ processResources {
     }
 }
 
-mixin {
-    disableRefMapWarning = true
-    defaultObfuscationEnv searge
-    add sourceSets.main, "mixins.hyaddons.refmap.json"
-}
-
 reobf {
     shadowJar {
         classpath = sourceSets.main.compileClasspath
         mappingType = "SEARGE"
-    }
-}
-
-sourceSets {
-    main {
-        ext.refMap = "mixins.hyaddons.refmap.json"
     }
 }
 

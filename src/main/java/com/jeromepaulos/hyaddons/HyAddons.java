@@ -5,6 +5,7 @@ import com.jeromepaulos.hyaddons.config.ConfigCommand;
 import com.jeromepaulos.hyaddons.features.*;
 import com.jeromepaulos.hyaddons.updates.UpdateGui;
 import com.jeromepaulos.hyaddons.updates.Updater;
+import com.jeromepaulos.hyaddons.utils.SummonUtils;
 import com.jeromepaulos.hyaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -52,6 +53,8 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new MimicDeath());
         MinecraftForge.EVENT_BUS.register(new DungeonWarning());
         MinecraftForge.EVENT_BUS.register(new DungeonVignette());
+        MinecraftForge.EVENT_BUS.register(new ColoredNames());
+        MinecraftForge.EVENT_BUS.register(new Memes());
         // MinecraftForge.EVENT_BUS.register(new NecromancySkins());
 
         config = new Config();
@@ -61,6 +64,8 @@ public class HyAddons {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         new Updater();
+        ColoredNames.loadNames();
+        SummonUtils.loadSkins();
         PetOverlay.loadPet();
     }
 

@@ -4,7 +4,7 @@
     "description": "Useful features for Hypixel SkyBlock",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://github.com/jxxe/HyAddons",
+    "url": "https://github.com/HyAddons/HyAddons",
     "updateUrl": "",
     "authorList": ["HY7"],
     "logoFile": "",

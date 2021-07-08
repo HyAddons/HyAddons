@@ -27,9 +27,18 @@ public class Config extends Vigilant {
             name = "Check for Updates",
             description = "How should HyAddons check for updates?",
             options = {"Disabled", "Latest", "Stable"},
-            category = "General"
+            category = "General",
+            subcategory = "Configuration"
     )
     public static int updateType = 2;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Enable Colored Names",
+            description = "Show your own and other colored names\n&8Doesn't significantly impact performance",
+            category = "General",
+            subcategory = "Configuration"
+    )
+    public static boolean coloredNames = true;
 
     // Dungeons
     @Property(
@@ -48,14 +57,6 @@ public class Config extends Vigilant {
             subcategory = "Cooldowns"
     )
     public static boolean seismicWaveCooldown = false;
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Wither Shield Cooldown",
-            description = "Display a cooldown timer for your wither shield under the crosshair",
-            category = "Dungeons",
-            subcategory = "Cooldowns"
-    )
-    public static boolean witherShieldCooldown = false;
     @Property(
             type = PropertyType.SWITCH,
             name = "Necron Phase Announcements",
@@ -115,6 +116,13 @@ public class Config extends Vigilant {
             subcategory = "Tools"
     )
     public static boolean shortPartyTransfer = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Fix Necromancy Summon Skins",
+            description = "Replace the default phoenix skin with the mob's original skin",
+            category = "Miscellaneous"
+    )
+    public static boolean fixSummonSkins = false;
 
     // Party Finder
     @Property(
@@ -262,58 +270,66 @@ public class Config extends Vigilant {
     )
     public static boolean pickaxeAbilityMessages = false;
 
-    // Voidgloom Seraph
+    // Slayers > Voidgloom Seraph
     @Property(
             type = PropertyType.SWITCH,
             name = "Highlight Beacons",
             description = "Highlight nearby beacons placed by a Voidgloom Seraph",
-            category = "Voidgloom Seraph"
+            category = "Slayers",
+            subcategory = "Voidgloom Seraph"
     )
     public static boolean highlightVoidgloomBeacons = false;
     @Property(
             type = PropertyType.SWITCH,
+            name = "Show Path to Beacon",
+            description = "Renders a 'chemtrail' behind thrown beacons",
+            category = "Slayers",
+            subcategory = "Voidgloom Seraph"
+    )
+    public static boolean showBeaconPath = false;
+    @Property(
+            type = PropertyType.SWITCH,
             name = "Beacon Warning",
             description = "Show a title when there is a beacon near you",
-            category = "Voidgloom Seraph"
+            category = "Slayers",
+            subcategory = "Voidgloom Seraph"
     )
     public static boolean beaconWarningTitle = false;
     @Property(
             type = PropertyType.SWITCH,
+            name = "Wither Shield Cooldown",
+            description = "Display a cooldown timer for your wither shield under the crosshair",
+            category = "Slayer",
+            subcategory = "Voidgloom Seraph"
+    )
+    public static boolean witherShieldCooldown = false;
+    @Property(
+            type = PropertyType.SWITCH,
             name = "Highlight Nukekubi Fixation Heads",
             description = "Highlight floating heads summoned by a Voidgloom Seraph",
-            category = "Voidgloom Seraph"
+            category = "Slayers",
+            subcategory = "Voidgloom Seraph"
     )
     public static boolean highlightVoidgloomSkulls = false;
     @Property(
             type = PropertyType.SWITCH,
             name = "Ignore Other Bosses",
             description = "Only activate features when &oyour&r boss is alive",
-            category = "Voidgloom Seraph"
+            category = "Slayers",
+            subcategory = "Voidgloom Seraph"
     )
     public static boolean ignoreOtherVoidgloom = true;
-    @Property(
-            type = PropertyType.SLIDER,
-            name = "Boss Search Radius",
-            description = "Set the distance to search for beacons and bosses\nMay degrade performance and usefulness at high values",
-            category = "Voidgloom Seraph",
-            min = 5,
-            max = 40
-    )
-    public static int voidgloomSearchRadius = 20;
 
     public static class ConfigSorting extends SortingBehavior {
         @NotNull @Override
         public Comparator<Category> getCategoryComparator() {
-            return new Comparator<Category>() {
-                @Override
-                public int compare(Category o1, Category o2) {
-                    if(o1.getName().equals("General")) {
-                        return -1;
-                    } else if(o2.getName().equals("General")) {
-                        return 1;
-                    } else {
-                        return o1.getName().compareTo(o2.getName());
-                    }
+            return (o1, o2) -> {
+                if(o1.getName().equals("General")) {
+                    return -1;
+                } else if(o2.getName().equals("General")) {
+                    return 1;
+                } else {
+                    return o1.getName().compareTo(o2.getName());
                 }
             };
         }

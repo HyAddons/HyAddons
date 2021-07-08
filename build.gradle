@@ -1,44 +1,32 @@
 /*
- * Modified from Skytils under GNU Affero Public license.
- * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
- * @author My-Name-Is-Jeff
- * @author Sychic
+ * Skytils - Hypixel Skyblock Quality of Life Mod
+ * Copyright (C) 2021 Skytils
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots"
-        }
-        maven {
-            name = "forge"
-            url = "https://maven.minecraftforge.net/"
-        }
-        maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
-        maven { url "https://jitpack.io" }
-    }
-    dependencies {
-        classpath "com.github.asbyth:ForgeGradle:86b23926f3"
-        classpath "com.github.Skytils:mixingradle:d75e32e743"
-    }
+
+plugins {
+    id "net.minecraftforge.gradle.forge" version "6f5327"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id "org.spongepowered.mixin" version "d5f9873d60"
 }
 
-apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "org.spongepowered.mixin"
-apply plugin: "java"
-version = "pre3"
+version = "pre4"
 group = "com.jeromepaulos.hyaddons"
 archivesBaseName = "HyAddons"
 
-sourceCompatibility = targetCompatibility = 1.8
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
@@ -49,62 +37,65 @@ minecraft {
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
-    clientJvmArgs += "-Dfml.coreMods.load=com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin"
-    clientRunArgs += "--mixin mixins.hyaddons.json"
 
+    replace "@VERSION@": project.version
+
+    clientJvmArgs += "-Dfml.coreMods.load=com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin"
+    clientRunArgs += "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
+    clientRunArgs += "--mixin mixins.hyaddons.json"
 }
 
 repositories {
-    jcenter()
     mavenCentral()
     maven { url "https://repo.spongepowered.org/repository/maven-public/" }
-    maven { url = "https://repo.sk1er.club/repository/maven-public/" }
-}
-
-configurations {
-    packageLib
+    maven { url "https://repo.sk1er.club/repository/maven-public/" }
 }
 
 dependencies {
-    implementation("club.sk1er:Vigilance:104-10809-SNAPSHOT")
-    packageLib("club.sk1er:Vigilance:104-10809-SNAPSHOT")
-
     implementation("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         transitive = false
-        exclude module: 'guava'
-        exclude module: 'commons-io'
-        exclude module: 'gson'
     }
-    packageLib("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        exclude module: 'guava'
-        exclude module: 'commons-io'
-        exclude module: 'gson'
-    }
+
     annotationProcessor("org.spongepowered:mixin:0.7.11-SNAPSHOT")
+
+    implementation("club.sk1er:Vigilance:104-10809-SNAPSHOT")
 }
 
-mixin {
-    disableRefMapWarning = true
-    defaultObfuscationEnv searge
-    add sourceSets.main, "mixins.sre.refmap.json"
-}
 jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
     manifest.attributes(
+            "Main-Class": "HyAddonsInstallerFrame",
             "FMLCorePlugin": "com.jeromepaulos.hyaddons.tweaker.FMLLoadingPlugin",
             "FMLCorePluginContainsFMLMod": true,
             "ForceLoadAsMod": true,
-            "Main-Class": "HyAddonsInstallerFrame",
             "MixinConfigs": "mixins.hyaddons.json",
             "ModSide": "CLIENT",
             "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
             "TweakOrder": "0",
     )
-    from {
-        configurations.packageLib.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+
+    enabled = false
 }
+
+shadowJar {
+    archiveFileName = jar.archiveFileName
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    relocate("club.sk1er", "hyaddons.sk1er")
+
+    exclude "LICENSE.md"
+    exclude "pack.mcmeta"
+    exclude "dummyThing"
+    exclude "**/module-info.class"
+    exclude "*.so"
+    exclude "*.dylib"
+    exclude "*.dll"
+    exclude "*.jnilib"
+    exclude "ibxm/**"
+    exclude "com/jcraft/**"
+    exclude "org/lwjgl/**"
+    exclude "net/java/**"
+}
+
 processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
@@ -112,17 +103,35 @@ processResources {
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+        include "mcmod.info"
 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand "version": project.version, "mcversion": project.minecraft.version
     }
 
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude "mcmod.info"
     }
 }
-sourceSets {
-    main { output.resourcesDir = output.resourcesDir }
+
+mixin {
+    disableRefMapWarning = true
+    defaultObfuscationEnv searge
+    add sourceSets.main, "mixins.hyaddons.refmap.json"
 }
+
+reobf {
+    shadowJar {
+        classpath = sourceSets.main.compileClasspath
+        mappingType = "SEARGE"
+    }
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.hyaddons.refmap.json"
+    }
+}
+
+tasks.reobfJar.dependsOn(shadowJar)

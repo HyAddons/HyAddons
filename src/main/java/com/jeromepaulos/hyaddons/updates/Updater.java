@@ -5,30 +5,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jeromepaulos.hyaddons.HyAddons;
 import com.jeromepaulos.hyaddons.config.Config;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
+import com.jeromepaulos.hyaddons.utils.HttpUtils;
 
 public class Updater {
 
-    private static final String endpoint = "https://projects.jeromepaulos.com/hyaddons/updates/";
-    private static String response = null;
     private static String latestVersion = null;
 
     public Updater() {
         if(Config.updateType != 0) {
             new Thread(() -> {
-                try {
-                    HttpClient client = HttpClients.createDefault();
-                    HttpGet request = new HttpGet(endpoint);
-                    request.addHeader("User-Agent", "HyAddons");
-                    response = EntityUtils.toString(client.execute(request).getEntity(), "UTF-8");
-                } catch (IOException exception) {
-                    System.out.println("There was a problem checking for updates: "+exception.getMessage());
-                }
+                String response = HttpUtils.fetch("https://projects.jeromepaulos.com/hyaddons/updates/");
 
                 if(response != null) {
                     JsonObject json = new JsonParser().parse(response).getAsJsonObject();
@@ -42,7 +28,9 @@ public class Updater {
                     }
 
                     if(latestVersion != null && !HyAddons.VERSION.equals(latestVersion)) {
-                        HyAddons.update = latestVersion;
+                        if(Config.updateType != 2 && !latestVersion.toLowerCase().contains("pre")) {
+                            HyAddons.update = latestVersion;
+                        }
                     }
                 }
             }, "HyAddons-Updater").start();
