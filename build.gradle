@@ -22,7 +22,7 @@ plugins {
     id "org.spongepowered.mixin" version "d5f9873d60"
 }
 
-version = "pre4"
+version = "pre5"
 group = "com.jeromepaulos.hyaddons"
 archivesBaseName = "HyAddons"
 

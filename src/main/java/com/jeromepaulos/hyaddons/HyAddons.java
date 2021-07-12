@@ -54,8 +54,6 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new DungeonWarning());
         MinecraftForge.EVENT_BUS.register(new DungeonVignette());
         MinecraftForge.EVENT_BUS.register(new ColoredNames());
-        MinecraftForge.EVENT_BUS.register(new Memes());
-        // MinecraftForge.EVENT_BUS.register(new NecromancySkins());
 
         config = new Config();
         config.preload();

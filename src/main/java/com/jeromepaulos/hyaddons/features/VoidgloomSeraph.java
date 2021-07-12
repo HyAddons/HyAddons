@@ -45,6 +45,9 @@ public class VoidgloomSeraph {
         if(Utils.inSkyBlock) {
             if(Config.ignoreOtherVoidgloom) {
                 activateFeatures = ScoreboardUtils.scoreboardContains("Voidgloom Seraph") && ScoreboardUtils.scoreboardContains("Slay the boss!");
+                if(!activateFeatures) {
+                    reset();
+                }
             } else {
                 activateFeatures = true;
             }
@@ -125,11 +128,11 @@ public class VoidgloomSeraph {
             AxisAlignedBB bb = mc.thePlayer.getEntityBoundingBox().expand(20, 20, 20);
             Collection<EntityArmorStand> entities = mc.theWorld.getEntitiesWithinAABB(EntityArmorStand.class, bb);
             for(EntityArmorStand entity : entities) {
-                if(entity.getEquipmentInSlot(4) != null) {
+                if(entity != null && entity.getEquipmentInSlot(4) != null) {
                     ItemStack item = entity.getEquipmentInSlot(4);
                     if(item.getItem() == Items.skull) {
                         NBTTagCompound nbt = item.getTagCompound();
-                        if(nbt.hasKey("SkullOwner")) {
+                        if(nbt != null && nbt.hasKey("SkullOwner")) {
                             String texture = nbt.getCompoundTag("SkullOwner").getCompoundTag("Properties").getTagList("textures", Constants.NBT.TAG_COMPOUND).getCompoundTagAt(0).getString("Value");
                             texture = new String(Base64.getDecoder().decode(texture));
                             if(texture.contains("eb07594e2df273921a77c101d0bfdfa1115abed5b9b2029eb496ceba9bdbb4b3")) {
@@ -142,12 +145,16 @@ public class VoidgloomSeraph {
         }
     }
 
-    @SubscribeEvent
-    public void onWorldLoad(WorldEvent.Load event) {
+    private void reset() {
         beacon = null;
         beaconPath.clear();
         beaconEntity = null;
         ticksSincePath = 0;
+    }
+
+    @SubscribeEvent
+    public void onWorldLoad(WorldEvent.Load event) {
+        reset();
     }
 
 }

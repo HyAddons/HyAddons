@@ -34,7 +34,7 @@ public class Config extends Vigilant {
     @Property(
             type = PropertyType.SWITCH,
             name = "Enable Colored Names",
-            description = "Show your own and other colored names\n&8Doesn't significantly impact performance",
+            description = "Show your own and other colored names",
             category = "General",
             subcategory = "Configuration"
     )
@@ -299,7 +299,7 @@ public class Config extends Vigilant {
             type = PropertyType.SWITCH,
             name = "Wither Shield Cooldown",
             description = "Display a cooldown timer for your wither shield under the crosshair",
-            category = "Slayer",
+            category = "Slayers",
             subcategory = "Voidgloom Seraph"
     )
     public static boolean witherShieldCooldown = false;

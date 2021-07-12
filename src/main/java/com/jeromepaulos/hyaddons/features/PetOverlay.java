@@ -101,7 +101,7 @@ public class PetOverlay {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if(Config.petOverlay && Config.tamingLevel == 0) {
+        if(Config.petOverlay && Config.tamingLevel == 0 && mc.thePlayer != null) {
             List<Slot> inventory = mc.thePlayer.openContainer.inventorySlots;
             String inventoryName = inventory.get(0).inventory.getName();
             if(inventoryName.equals("Your Skills")) {

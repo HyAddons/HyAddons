@@ -1,11 +1,11 @@
 {
-  "package": "com.jeromepaulos.hyaddons.mixins",
-  "refmap": "mixins.hyaddons.refmap.json",
-  "compatibilityLevel": "JAVA_8",
-  "minVersion": "0.7",
-  "mixins": [
-    "MixinAbstractClientPlayer",
-    "MixinChunk",
-    "MixinGuiNewChat"
+    "package": "com.jeromepaulos.hyaddons.mixins",
+    "refmap": "mixins.hyaddons.refmap.json",
+    "compatibilityLevel": "JAVA_8",
+    "minVersion": "0.7",
+    "mixins": [
+        "MixinChunk",
+        "MixinGuiNewChat",
+        "MixinAbstractClientPlayer"
   ]
 }
