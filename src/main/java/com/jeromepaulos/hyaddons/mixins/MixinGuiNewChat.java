@@ -21,7 +21,9 @@ public abstract class MixinGuiNewChat {
             if(message != null) {
                 return message;
             } else {
-                messageCache.put(original, ColoredNames.replaceString(original));
+                String coloredMessage = ColoredNames.replaceString(original);
+                messageCache.put(original, coloredMessage);
+                return coloredMessage;
             }
         }
         return original;

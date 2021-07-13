@@ -46,7 +46,7 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new Utils());
         MinecraftForge.EVENT_BUS.register(new PetOverlay());
         MinecraftForge.EVENT_BUS.register(new DevTools());
-        MinecraftForge.EVENT_BUS.register(new CakeSoul());
+        // MinecraftForge.EVENT_BUS.register(new CakeSoul());
         MinecraftForge.EVENT_BUS.register(new VoidgloomSeraph());
         MinecraftForge.EVENT_BUS.register(new DungeonCooldowns());
         MinecraftForge.EVENT_BUS.register(new NecronPhases());
@@ -54,6 +54,7 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new DungeonWarning());
         MinecraftForge.EVENT_BUS.register(new DungeonVignette());
         MinecraftForge.EVENT_BUS.register(new ColoredNames());
+        MinecraftForge.EVENT_BUS.register(new BigPP());
 
         config = new Config();
         config.preload();

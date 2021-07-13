@@ -100,14 +100,14 @@ public class Config extends Vigilant {
             subcategory = "Tools"
     )
     public static boolean showSkyBlockId = false;
-    @Property(
+    /*@Property(
             type = PropertyType.SWITCH,
             name = "Show Cake Soul Owner",
             description = "Shows the owner of the cake a soul was obtained from",
             category = "Miscellaneous",
             subcategory = "Tools"
     )
-    public static boolean showCakeSoulOwner = false;
+    public static boolean showCakeSoulOwner = false;*/
     @Property(
             type = PropertyType.SWITCH,
             name = "Short Party Transfer Command",
