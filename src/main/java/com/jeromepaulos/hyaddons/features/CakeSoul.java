@@ -1,18 +1,8 @@
 package com.jeromepaulos.hyaddons.features;
 
-import com.jeromepaulos.hyaddons.config.Config;
-import com.jeromepaulos.hyaddons.utils.Utils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 public class CakeSoul {
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onItemTooltip(ItemTooltipEvent event) {
         if(Config.showCakeSoulOwner && Utils.inSkyBlock) {
@@ -35,6 +25,6 @@ public class CakeSoul {
                 }
             }
         }
-    }
+    }*/
 
 }
