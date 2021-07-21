@@ -19,7 +19,6 @@ import java.util.zip.ZipEntry;
 /**
  * Taken from SkyblockAddons under MIT License
  * https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE
- * @author BiscuitDevelopment
  */
 public class HyAddonsInstallerFrame extends JFrame implements ActionListener, MouseListener {
 

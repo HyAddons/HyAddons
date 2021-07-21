@@ -1,7 +1,7 @@
 package com.jeromepaulos.hyaddons.mixins;
 
 import com.jeromepaulos.hyaddons.config.Config;
-import com.jeromepaulos.hyaddons.features.ColoredNames;
+import com.jeromepaulos.hyaddons.features.misc.ColoredNames;
 import net.minecraft.client.gui.GuiNewChat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

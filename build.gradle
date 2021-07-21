@@ -1,28 +1,10 @@
-/*
- * Skytils - Hypixel Skyblock Quality of Life Mod
- * Copyright (C) 2021 Skytils
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 plugins {
     id "net.minecraftforge.gradle.forge" version "6f5327"
     id "com.github.johnrengelman.shadow" version "6.1.0"
     id "org.spongepowered.mixin" version "d5f9873d60"
 }
 
-version = "pre5.1"
+version = "pre6"
 group = "com.jeromepaulos.hyaddons"
 archivesBaseName = "HyAddons"
 
@@ -59,6 +41,7 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.7.11-SNAPSHOT")
 
     implementation("club.sk1er:Vigilance:104-10809-SNAPSHOT")
+    // implementation("gg.essential:Vigilance:138-10809-SNAPSHOT")
 }
 
 jar {
@@ -81,6 +64,7 @@ shadowJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     relocate("club.sk1er", "hyaddons.sk1er")
+    // relocate("gg.essential", "hyaddons.essential")
 
     exclude "LICENSE.md"
     exclude "pack.mcmeta"
@@ -127,6 +111,16 @@ reobf {
         mappingType = "SEARGE"
     }
 }
+
+task moveResources {
+    doLast {
+        ant.move file: "${buildDir}/resources/main",
+                todir: "${buildDir}/classes/java"
+    }
+}
+
+tasks.moveResources.dependsOn processResources
+classes.dependsOn tasks.moveResources
 
 sourceSets {
     main {

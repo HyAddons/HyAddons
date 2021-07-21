@@ -1,4 +1,4 @@
-package com.jeromepaulos.hyaddons.features;
+package com.jeromepaulos.hyaddons.features.misc;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

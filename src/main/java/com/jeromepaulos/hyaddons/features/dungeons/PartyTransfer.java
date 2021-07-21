@@ -1,4 +1,4 @@
-package com.jeromepaulos.hyaddons.features;
+package com.jeromepaulos.hyaddons.features.dungeons;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import net.minecraft.client.Minecraft;

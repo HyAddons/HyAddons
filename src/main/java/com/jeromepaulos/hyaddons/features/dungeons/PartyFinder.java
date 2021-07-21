@@ -1,4 +1,4 @@
-package com.jeromepaulos.hyaddons.features;
+package com.jeromepaulos.hyaddons.features.dungeons;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.utils.Utils;
@@ -29,7 +29,6 @@ public class PartyFinder {
     /**
      * Modified from Cowlection under MIT license
      * https://github.com/cow-mc/Cowlection/blob/master/LICENSE
-     * @author cow-mc
      */
     private void highlightSlot(Slot slot, GuiChest guiChest, Color color, int z) {
         int guiLeft = (guiChest.width - 176) / 2;

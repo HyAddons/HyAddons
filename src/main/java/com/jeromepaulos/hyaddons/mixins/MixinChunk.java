@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Modified from Skytils under GPL-3.0
  * https://github.com/Skytils/SkytilsMod/blob/master/LICENSE
- * @author My-Name-Is-Jeff
  */
 @Mixin(Chunk.class)
 public abstract class MixinChunk {

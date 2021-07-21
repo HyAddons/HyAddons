@@ -1,4 +1,4 @@
-package com.jeromepaulos.hyaddons.features;
+package com.jeromepaulos.hyaddons.features.misc;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.utils.Utils;

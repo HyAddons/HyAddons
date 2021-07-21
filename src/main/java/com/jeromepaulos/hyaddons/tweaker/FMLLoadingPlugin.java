@@ -12,7 +12,7 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin {
 
     public FMLLoadingPlugin() {
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.sre.json");
+        Mixins.addConfiguration("mixins.hyaddons.json");
         MixinEnvironment.getCurrentEnvironment().setObfuscationContext("searge");
         MixinEnvironment.getCurrentEnvironment().setSide(MixinEnvironment.Side.CLIENT);
     }

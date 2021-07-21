@@ -1,3 +1,5 @@
+// Modified from Skytils
+
 pluginManagement {
     repositories {
         gradlePluginPortal()

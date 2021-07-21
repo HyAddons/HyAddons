@@ -50,7 +50,6 @@ public abstract class MixinAbstractClientPlayer extends EntityPlayer {
     /**
      * Modified from Skytils under GPL 3.0 license
      * https://github.com/Skytils/SkytilsMod/blob/1.x/LICENSE.md
-     * @author My-Name-Is-Jeff
      */
     private boolean isSummonMob() {
         if(isSummonMob != null) return isSummonMob;

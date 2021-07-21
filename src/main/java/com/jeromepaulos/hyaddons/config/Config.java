@@ -2,6 +2,8 @@ package com.jeromepaulos.hyaddons.config;
 
 import club.sk1er.vigilance.Vigilant;
 import club.sk1er.vigilance.data.*;
+import com.jeromepaulos.hyaddons.HyAddons;
+import com.jeromepaulos.hyaddons.gui.MoveWidgetGui;
 import com.jeromepaulos.hyaddons.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,15 +25,6 @@ public class Config extends Vigilant {
         Utils.openUrl("https://discord.gg/bz3R9hWjD3");
     }
     @Property(
-            type = PropertyType.SELECTOR,
-            name = "Check for Updates",
-            description = "How should HyAddons check for updates?",
-            options = {"Disabled", "Latest", "Stable"},
-            category = "General",
-            subcategory = "Configuration"
-    )
-    public static int updateType = 2;
-    @Property(
             type = PropertyType.SWITCH,
             name = "Enable Colored Names",
             description = "Show your own and other colored names",
@@ -39,6 +32,69 @@ public class Config extends Vigilant {
             subcategory = "Configuration"
     )
     public static boolean coloredNames = true;
+    @Property(
+            type = PropertyType.BUTTON,
+            name = "Edit GUI Locations",
+            description = "Change the position of enabled widgets on your screen",
+            category = "General",
+            subcategory = "Configuration",
+            placeholder = "Edit"
+    )
+    public static void openGuiEditor() {
+        HyAddons.guiToOpen = new MoveWidgetGui();
+    }
+    @Property(
+            type = PropertyType.SELECTOR,
+            name = "Check for Updates",
+            description = "How should HyAddons check for updates?",
+            options = {"Disabled", "Latest", "Stable"},
+            category = "General",
+            subcategory = "Extra"
+    )
+    public static int updateType = 1;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Show Debyg Messages",
+            description = "Only turn this off if they are flooding your chat",
+            category = "General",
+            subcategory = "Extra"
+    )
+    public static boolean showDebugMessages = true;
+
+    // Mining
+    @Property(
+            type = PropertyType.SELECTOR,
+            name = "Crystal Hollows Map",
+            description = "Show a minimap with your approximate location",
+            options = {"Disabled", "Enabled", "No Labels"},
+            category = "Mining",
+            subcategory = "Crystal Hollows"
+    )
+    public static int crystalHollowsMap = 0;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Crystal Hollows Waypoints",
+            description = "Type [COMMAND] to manage waypoints",
+            category = "Mining",
+            subcategory = "Crystal Hollows"
+    )
+    public static boolean crystalHollowsWaypoints = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Coordinate Display",
+            description = "A simple coordinate widget, available everywhere in Minecraft",
+            category = "Mining",
+            subcategory = "Crystal Hollows"
+    )
+    public static boolean coordinateDisplay = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Commission Widget",
+            description = "Display a GUI widget with your current commissions",
+            category = "Mining",
+            subcategory = "Mining"
+    )
+    public static boolean commissionWidget = false;
 
     // Dungeons
     @Property(
@@ -91,23 +147,38 @@ public class Config extends Vigilant {
     )
     public static boolean bossEntryWarning = false;
 
-    // Miscellaneous
+    // Pets
     @Property(
             type = PropertyType.SWITCH,
-            name = "Show SkyBlock ID",
-            description = "Requires advanced tooltips to be enabled (F3+H)",
-            category = "Miscellaneous",
-            subcategory = "Tools"
+            name = "Show Prehistoric Egg Steps",
+            description = "Display the number of steps recorded on the prehistoric egg item",
+            category = "Pets"
     )
-    public static boolean showSkyBlockId = false;
+    public static boolean prehistoricEggSteps = true;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Pet Overlay",
+            description = "Shows information about your current pet on screen",
+            category = "Pets"
+    )
+    public static boolean petOverlay = false;
+    @Property(
+            type = PropertyType.TEXT,
+            name = "Current Pet",
+            category = "Pets",
+            hidden = true
+    ) // Hidden field used to store currently active pet
+    public static String currentPet = "";
+
+    // Miscellaneous
     /*@Property(
             type = PropertyType.SWITCH,
             name = "Show Cake Soul Owner",
             description = "Shows the owner of the cake a soul was obtained from",
             category = "Miscellaneous",
             subcategory = "Tools"
-    )
-    public static boolean showCakeSoulOwner = false;*/
+    )*/
+    public static boolean showCakeSoulOwner = false;
     @Property(
             type = PropertyType.SWITCH,
             name = "Short Party Transfer Command",
@@ -218,31 +289,6 @@ public class Config extends Vigilant {
             subcategory = "Appearance"
     )
     public static int bridgePrefix = 0;
-
-    // Pet Overlay
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Pet Overlay",
-            description = "Shows information about your current pet on screen",
-            category = "Pet Overlay"
-    )
-    public static boolean petOverlay = false;
-    @Property(
-            type = PropertyType.SLIDER,
-            name = "Taming Level",
-            description = "Open your skills menu to set it automatically",
-            category = "Pet Overlay",
-            subcategory = "Configuration",
-            max = 50
-    )
-    public static int tamingLevel = 0;
-    @Property(
-            type = PropertyType.TEXT,
-            name = "Current Pet",
-            category = "Pet Overlay",
-            hidden = true
-    ) // Hidden field used to store currently active pet
-    public static String currentPet = "";
 
     // Spam Hider
     @Property(

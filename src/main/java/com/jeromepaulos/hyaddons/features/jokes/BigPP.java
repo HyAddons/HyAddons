@@ -1,4 +1,4 @@
-package com.jeromepaulos.hyaddons.features;
+package com.jeromepaulos.hyaddons.features.jokes;
 
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;

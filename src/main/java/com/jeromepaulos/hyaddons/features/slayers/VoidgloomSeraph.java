@@ -1,4 +1,4 @@
-package com.jeromepaulos.hyaddons.features;
+package com.jeromepaulos.hyaddons.features.slayers;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.events.BlockChangeEvent;

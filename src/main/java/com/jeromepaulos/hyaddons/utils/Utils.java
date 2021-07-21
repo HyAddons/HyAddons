@@ -1,5 +1,6 @@
 package com.jeromepaulos.hyaddons.utils;
 
+import com.jeromepaulos.hyaddons.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.scoreboard.ScoreObjective;
@@ -35,8 +36,11 @@ public class Utils {
     public static void sendModMessage(String message) {
         sendMessage("&dHyAddons > &f" + message);
     }
+    
     public static void sendDebugMessage(String message) {
-        sendMessage("&dHyAddons Debug > &f" + message);
+        if(Config.showDebugMessages) {
+            sendMessage("&dHyAddons Debug > &f" + message);
+        }
     }
 
     public static void displayTitle(String title, String subtitle, int ticks) {
