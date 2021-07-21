@@ -71,13 +71,13 @@ public class Config extends Vigilant {
             subcategory = "Crystal Hollows"
     )
     public static int crystalHollowsMap = 0;
-    @Property(
+    /*@Property(
             type = PropertyType.SWITCH,
             name = "Crystal Hollows Waypoints",
             description = "Type [COMMAND] to manage waypoints",
             category = "Mining",
             subcategory = "Crystal Hollows"
-    )
+    )*/
     public static boolean crystalHollowsWaypoints = false;
     @Property(
             type = PropertyType.SWITCH,

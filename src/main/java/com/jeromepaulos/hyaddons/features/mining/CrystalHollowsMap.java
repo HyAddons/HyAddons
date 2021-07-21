@@ -25,8 +25,8 @@ public class CrystalHollowsMap extends GuiWidget {
     }
 
     private static WidgetPosition blockPosToMapWidgetPosition(WidgetPosition pos, BlockPos coords) {;
-        int x = (int) Math.round(pos.getX() + (MathHelper.clamp_int(coords.getX(), 202, 823) - 202)/621d*96);
-        int z = (int) Math.round(pos.getY() + (MathHelper.clamp_int(coords.getZ(), 202, 823) - 202)/621d*96);
+        int x = (int) Math.round(pos.getX() + (MathHelper.clamp_int(coords.getX(), 202, 823) - 202)/621d*128);
+        int z = (int) Math.round(pos.getY() + (MathHelper.clamp_int(coords.getZ(), 202, 823) - 202)/621d*128);
         return new WidgetPosition(x, z);
     }
 
@@ -46,12 +46,12 @@ public class CrystalHollowsMap extends GuiWidget {
 
     @Override
     public int getWidth() {
-        return 96;
+        return 128;
     }
 
     @Override
     public int getHeight() {
-        return 96;
+        return 128;
     }
 
     @Override

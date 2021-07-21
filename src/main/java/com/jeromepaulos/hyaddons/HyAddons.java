@@ -2,12 +2,11 @@ package com.jeromepaulos.hyaddons;
 
 import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.config.ConfigCommand;
+import com.jeromepaulos.hyaddons.features.dungeons.*;
+import com.jeromepaulos.hyaddons.features.jokes.BigPP;
+import com.jeromepaulos.hyaddons.features.mining.CommissionsWidget;
 import com.jeromepaulos.hyaddons.features.mining.CoordDisplay;
 import com.jeromepaulos.hyaddons.features.mining.CrystalHollowsMap;
-import com.jeromepaulos.hyaddons.features.mining.CrystalHollowsWaypoints;
-import com.jeromepaulos.hyaddons.features.dungeons.*;
-import com.jeromepaulos.hyaddons.features.mining.CommissionsWidget;
-import com.jeromepaulos.hyaddons.features.jokes.BigPP;
 import com.jeromepaulos.hyaddons.features.misc.ChatBridge;
 import com.jeromepaulos.hyaddons.features.misc.ColoredNames;
 import com.jeromepaulos.hyaddons.features.misc.SpamHider;
@@ -85,8 +84,8 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new EggStepTracker());
 
         // Mining
-        MinecraftForge.EVENT_BUS.register(new CrystalHollowsWaypoints());
         MinecraftForge.EVENT_BUS.register(new CrystalHollowsMap());
+        // MinecraftForge.EVENT_BUS.register(new CrystalHollowsWaypoints());
         MinecraftForge.EVENT_BUS.register(new CoordDisplay());
         MinecraftForge.EVENT_BUS.register(new CommissionsWidget());
 
