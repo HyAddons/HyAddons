@@ -1,8 +1,8 @@
 package com.jeromepaulos.hyaddons.features.dungeons;
 
-import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.utils.ScoreboardUtils;
 import com.jeromepaulos.hyaddons.utils.Utils;
+import com.jeromepaulos.hyaddons.config.Config;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;

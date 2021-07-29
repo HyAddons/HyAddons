@@ -2,8 +2,8 @@ package com.jeromepaulos.hyaddons.gui;
 
 public class WidgetPosition {
 
-    private int xPosition;
-    private int yPosition;
+    private Integer xPosition = null;
+    private Integer yPosition = null;
 
     public WidgetPosition(int xPosition, int yPosition) {
         this.xPosition = xPosition;

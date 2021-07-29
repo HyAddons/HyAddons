@@ -54,7 +54,7 @@ public class Config extends Vigilant {
     public static int updateType = 1;
     @Property(
             type = PropertyType.SWITCH,
-            name = "Show Debyg Messages",
+            name = "Show Debug Messages",
             description = "Only turn this off if they are flooding your chat",
             category = "General",
             subcategory = "Extra"
@@ -127,7 +127,7 @@ public class Config extends Vigilant {
             description = "Detect and announce in party chat when the mimic is killed",
             category = "Dungeons",
             subcategory = "Miscellaneous",
-            options = {"Disabled", "Mimic killed!", "Mimic exorcised!", "Mimic demolished!", "Mimic vaporized!", "Mimic banished!"}
+            options = {"Disabled", "Mimic killed!", "Mimic exorcised!", "Mimic demolished!", "Mimic vaporized!", "Mimic banished!", "Child destroyed!", "Mimic obliterated!"}
     )
     public static int mimicDeathMessage = 0;
     @Property(
@@ -146,6 +146,14 @@ public class Config extends Vigilant {
             subcategory = "Miscellaneous"
     )
     public static boolean bossEntryWarning = false;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Bonzo/Spirit Mask Alert",
+            description = "Display a large title when either item triggers",
+            category = "Dungeons",
+            subcategory = "Cooldowns"
+    )
+    public static boolean maskAlert = false;
 
     // Pets
     @Property(
@@ -186,14 +194,21 @@ public class Config extends Vigilant {
             category = "Miscellaneous",
             subcategory = "Tools"
     )
-    public static boolean shortPartyTransfer = false;
+    public static boolean shortPartyTransfer = true;
     @Property(
             type = PropertyType.SWITCH,
             name = "Fix Necromancy Summon Skins",
             description = "Replace the default phoenix skin with the mob's original skin",
             category = "Miscellaneous"
     )
-    public static boolean fixSummonSkins = false;
+    public static boolean fixSummonSkins = true;
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Safe Item Movement",
+            description = "Helps protect against accidentily dropping items\n&cUse at your own risk!",
+            category = "Miscellaneous"
+    )
+    public static boolean safeItemMovement = false;
 
     // Party Finder
     @Property(
@@ -272,6 +287,14 @@ public class Config extends Vigilant {
     public static String bridgeBotUsername = "";
     @Property(
             type = PropertyType.SELECTOR,
+            name = "Bridge Message Separator",
+            description = "The symbol your bridge uses to separate messages",
+            options = {"Username: Message", "Username > Message"},
+            category = "Chat Bridge"
+    )
+    public static int chatBridgeSeparator = 0;
+    @Property(
+            type = PropertyType.SELECTOR,
             name = "Bridge Message Color",
             description = "Choose the color of the formatted message",
             options = {"§1Dark Blue", "§2Dark Green", "§3Turquoise", "§4Dark Red", "§5Purple", "§6Gold", "§fWhite",
@@ -284,7 +307,7 @@ public class Config extends Vigilant {
             type = PropertyType.SELECTOR,
             name = "Bridge Message Prefix",
             description = "Choose a prefix for the formatted message",
-            options = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]", "[BOT]"},
+            options = {"[DISCORD]", "[DISC]", "[D]", "[BRIDGE]", "[BOT]", "Discord >"},
             category = "Chat Bridge",
             subcategory = "Appearance"
     )

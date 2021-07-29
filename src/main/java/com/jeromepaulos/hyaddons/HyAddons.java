@@ -6,16 +6,14 @@ import com.jeromepaulos.hyaddons.features.dungeons.*;
 import com.jeromepaulos.hyaddons.features.jokes.BigPP;
 import com.jeromepaulos.hyaddons.features.mining.CommissionsWidget;
 import com.jeromepaulos.hyaddons.features.mining.CoordDisplay;
-import com.jeromepaulos.hyaddons.features.mining.CrystalHollowsMap;
-import com.jeromepaulos.hyaddons.features.misc.ChatBridge;
-import com.jeromepaulos.hyaddons.features.misc.ColoredNames;
-import com.jeromepaulos.hyaddons.features.misc.SpamHider;
+import com.jeromepaulos.hyaddons.features.misc.*;
 import com.jeromepaulos.hyaddons.features.pets.EggStepTracker;
 import com.jeromepaulos.hyaddons.features.pets.PetOverlay;
 import com.jeromepaulos.hyaddons.features.slayers.VoidgloomSeraph;
 import com.jeromepaulos.hyaddons.gui.WidgetManager;
 import com.jeromepaulos.hyaddons.updates.UpdateGui;
 import com.jeromepaulos.hyaddons.updates.Updater;
+import com.jeromepaulos.hyaddons.utils.DungeonUtils;
 import com.jeromepaulos.hyaddons.utils.LocationUtils;
 import com.jeromepaulos.hyaddons.utils.SummonUtils;
 import com.jeromepaulos.hyaddons.utils.Utils;
@@ -57,6 +55,7 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(WIDGET_MANAGER);
         MinecraftForge.EVENT_BUS.register(new LocationUtils());
+        MinecraftForge.EVENT_BUS.register(new DungeonUtils());
 
         // Dungeons
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
@@ -65,6 +64,7 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new MimicDeath());
         MinecraftForge.EVENT_BUS.register(new DungeonWarning());
         MinecraftForge.EVENT_BUS.register(new DungeonVignette());
+        MinecraftForge.EVENT_BUS.register(new MaskAlerts());
 
         // Jokes
         MinecraftForge.EVENT_BUS.register(new BigPP());
@@ -75,6 +75,8 @@ public class HyAddons {
         /*MinecraftForge.EVENT_BUS.register(new CakeSoul());*/
         MinecraftForge.EVENT_BUS.register(new Utils());
         MinecraftForge.EVENT_BUS.register(new ColoredNames());
+        MinecraftForge.EVENT_BUS.register(new SafeItemMovement());
+        MinecraftForge.EVENT_BUS.register(new FixCoop());
 
         // Slayers
         MinecraftForge.EVENT_BUS.register(new VoidgloomSeraph());
@@ -84,10 +86,9 @@ public class HyAddons {
         MinecraftForge.EVENT_BUS.register(new EggStepTracker());
 
         // Mining
-        MinecraftForge.EVENT_BUS.register(new CrystalHollowsMap());
-        // MinecraftForge.EVENT_BUS.register(new CrystalHollowsWaypoints());
         MinecraftForge.EVENT_BUS.register(new CoordDisplay());
         MinecraftForge.EVENT_BUS.register(new CommissionsWidget());
+        // MinecraftForge.EVENT_BUS.register(new WindCompassWidget());
 
         config = new Config();
         config.preload();

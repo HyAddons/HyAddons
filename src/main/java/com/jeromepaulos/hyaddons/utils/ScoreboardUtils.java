@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
  * Taken from Danker's Skyblock Mod under GPL 3.0 license
  * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
  */
-
 public class ScoreboardUtils {
 
     public static String cleanSB(String scoreboard) {
@@ -35,7 +34,7 @@ public class ScoreboardUtils {
     }
 
     @SuppressWarnings({"ExecutionException", "IllegalArgumentException"})
-    public static List<String> getSidebarLines() {
+    public static List<String> getScoreboard() {
         List<String> lines = new ArrayList<>();
         if (Minecraft.getMinecraft().theWorld == null) return lines;
         Scoreboard scoreboard = Minecraft.getMinecraft().theWorld.getScoreboard();
@@ -66,7 +65,7 @@ public class ScoreboardUtils {
 
     public static boolean scoreboardContains(String string) {
         boolean result = false;
-        List<String> scoreboard = getSidebarLines();
+        List<String> scoreboard = getScoreboard();
         for (String line : scoreboard) {
             line = cleanSB(line);
             line = Utils.removeFormatting(line);
@@ -80,7 +79,7 @@ public class ScoreboardUtils {
 
     public static String getLineThatContains(String string) {
         String result = null;
-        List<String> scoreboard = getSidebarLines();
+        List<String> scoreboard = getScoreboard();
         for (String line : scoreboard) {
             line = cleanSB(line);
             if(line.contains(string)) {

@@ -85,7 +85,7 @@ public class PetOverlay extends GuiWidget {
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
         if(Utils.inSkyBlock && Config.petOverlay) {
-            String inventoryName = mc.thePlayer.openContainer.inventorySlots.get(0).inventory.getName();
+            String inventoryName = Utils.getInventoryName();
             if(inventoryName.equals("Pets") || inventoryName.endsWith(") Pets")) {
                 if(Utils.listContainsString(event.toolTip, "Click to summon")) {
                     String itemName = event.itemStack.getDisplayName();

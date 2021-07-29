@@ -1,7 +1,8 @@
 package com.jeromepaulos.hyaddons.features.dungeons;
 
-import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.utils.Utils;
+import com.jeromepaulos.hyaddons.config.Config;
+import com.jeromepaulos.hyaddons.utils.DungeonUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.EnumChatFormatting;
@@ -22,7 +23,7 @@ public class NecronPhases {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if(Config.necronPhaseAnnouncements && event.type == 0) {
+        if(Config.necronPhaseAnnouncements && DungeonUtils.inFloor(DungeonUtils.Floor.FLOOR_7) && event.type == 0) {
             String message = event.message.getUnformattedText();
             if(message.startsWith("[BOSS] Necron:")) {
                 if(message.contains("You tricked me!") || message.contains("That beam, it hurts! IT HURTS!!")) {

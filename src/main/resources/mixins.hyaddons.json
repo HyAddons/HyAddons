@@ -6,6 +6,8 @@
     "mixins": [
         "MixinAbstractClientPlayer",
         "MixinChunk",
-        "MixinGuiNewChat"
+        "MixinFontRenderer",
+        "MixinNetHandlerPlayClient",
+        "MixinNetworkManager"
     ]
 }

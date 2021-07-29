@@ -1,8 +1,8 @@
 package com.jeromepaulos.hyaddons.features.dungeons;
 
-import com.jeromepaulos.hyaddons.config.Config;
-import com.jeromepaulos.hyaddons.utils.ScoreboardUtils;
 import com.jeromepaulos.hyaddons.utils.Utils;
+import com.jeromepaulos.hyaddons.config.Config;
+import com.jeromepaulos.hyaddons.utils.DungeonUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,53 +15,30 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class DungeonVignette {
 
-    private static final Pattern tankRegex = Pattern.compile("\\[T\\] (.*) .*");
     private static final Minecraft mc = Minecraft.getMinecraft();
-
-    public static boolean protectedByTank = false;
     private static Double tankDistance = null;
-    private static String tankUsername = null;
 
     @SubscribeEvent
-    public void onTick(TickEvent.ClientTickEvent event) {
-        if(Utils.inDungeon && Config.tankVignette) {
-            if(tankUsername == null) {
-                String tankLine = ScoreboardUtils.getLineThatContains("[T]");
-                if(tankLine != null) {
-                    tankLine = Utils.removeFormatting(tankLine);
-                    Matcher matcher = tankRegex.matcher(tankLine);
-                    if(matcher.matches()) {
-                        tankUsername = matcher.group(1);
-                    }
-                } else {
-                    protectedByTank = false;
-                }
-            } else if(mc.theWorld != null) {
-                String tankLine = ScoreboardUtils.getLineThatContains("[T]");
-                if(tankLine != null && tankLine.contains("DEAD")) {
-                    protectedByTank = false;
-                } else {
-                    EntityPlayer tank = mc.theWorld.getPlayerEntityByName(tankUsername);
+    public void onTickEvent(TickEvent.ClientTickEvent event) {
+        if(Utils.inDungeon && DungeonUtils.dungeonRun != null && Config.tankVignette) {
+            tankDistance = null;
+            for(DungeonUtils.DungeonRun.DungeonPlayer player : DungeonUtils.dungeonRun.team.values()) {
+                if(player._class == DungeonUtils.Class.TANK) {
+                    EntityPlayer tank = mc.theWorld.getPlayerEntityByName(player.username);
                     if(tank != null) {
-                        tankDistance = Math.sqrt(Math.pow(mc.thePlayer.posX-tank.posX, 2) + Math.pow(mc.thePlayer.posY-tank.posY, 2) + Math.pow(mc.thePlayer.posZ-tank.posZ, 2));
-                        protectedByTank = tankDistance <= 30;
+                        double calcTankDistance = tank.getPosition().distanceSq(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ);
+                        if(calcTankDistance <= 30 && (tankDistance == null || calcTankDistance < tankDistance)) tankDistance = calcTankDistance;
                     }
                 }
-            } else {
-                tankUsername = null;
             }
         } else {
-            protectedByTank = false;
-            tankUsername = null;
+            tankDistance = null;
         }
     }
 
-    public static void renderVignette() {
+    private static void renderVignette(float blendColor) {
         ScaledResolution scaledRes = new ScaledResolution(mc);
         mc.entityRenderer.setupOverlayRendering();
         GlStateManager.enableBlend();
@@ -69,10 +46,6 @@ public class DungeonVignette {
         GlStateManager.depthMask(false);
         GlStateManager.tryBlendFuncSeparate(0, 769, 1, 0);
 
-        float blendColor = 1;
-        if(tankDistance > 20 && tankDistance < 30) {
-            blendColor = (float) ((30-tankDistance)/10);
-        }
         GlStateManager.color(blendColor,0,blendColor,0.5F);
 
         mc.getTextureManager().bindTexture(new ResourceLocation("textures/misc/vignette.png"));
@@ -94,8 +67,9 @@ public class DungeonVignette {
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
         if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
-            if(Config.tankVignette && protectedByTank && mc.gameSettings.thirdPersonView == 0) {
-                renderVignette();
+            if(Config.tankVignette && mc.gameSettings.thirdPersonView == 0 && tankDistance != null) {
+                // Change "opacity" of vignette gradually as tank moves away
+                renderVignette(tankDistance > 20 ? (float) ((30-tankDistance)/10) : 1);
             }
         }
     }

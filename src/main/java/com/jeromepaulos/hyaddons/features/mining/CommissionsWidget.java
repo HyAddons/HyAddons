@@ -64,23 +64,25 @@ public class CommissionsWidget extends GuiWidget {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if(counter % 10 == 0) {
-
-            List<String> tabList = TabUtils.getTabList();
-            for(int i = 0; i < tabList.size(); i++) {
-                String name = tabList.get(i);
-                if(name.contains("Commissions")) {
-                    commissions.clear();
-                    for(int j = i; j < i+4; j++) {
-                        name = tabList.get(j);
-                        if((name.contains("%") || name.contains("DONE")) && name.contains(": ")) {
-                            String[] commission = Utils.removeFormatting(name).split(": ");
-                            commissions.put(commission[0], commission[1]);
+            if(isEnabled() && (LocationUtils.onIsland(LocationUtils.Island.DWARVEN_MINES) || LocationUtils.onIsland(LocationUtils.Island.CRYSTAL_HOLLOWS))) {
+                List<String> tabList = TabUtils.getTabList();
+                for(int i = 0; i < tabList.size(); i++) {
+                    String name = tabList.get(i);
+                    if(name.contains("Commissions")) {
+                        commissions.clear();
+                        for(int j = i; j < i+4; j++) {
+                            if(tabList.size() >= j) {
+                                name = tabList.get(j);
+                                if((name.contains("%") || name.contains("DONE")) && name.contains(": ")) {
+                                    String[] commission = Utils.removeFormatting(name).trim().split(": ");
+                                    commissions.put(commission[0], commission[1]);
+                                }
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
             }
-
             counter = 0;
         }
         counter++;

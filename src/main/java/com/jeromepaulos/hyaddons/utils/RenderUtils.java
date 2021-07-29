@@ -48,6 +48,7 @@ public class RenderUtils {
      * https://github.com/SteveKunG/SkyBlockcatia/blob/1.8.9/LICENSE.md
      */
     public static void renderTexture(ResourceLocation texture, int x, int y, int width, int height) {
+        GlStateManager.disableLighting();
         RenderHelper.enableGUIStandardItemLighting();
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableBlend();
@@ -66,6 +67,7 @@ public class RenderUtils {
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableLighting();
         GlStateManager.popMatrix();
+        GlStateManager.enableLighting();
     }
 
     /**

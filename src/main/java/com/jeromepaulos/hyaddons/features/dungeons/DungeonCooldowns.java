@@ -1,7 +1,7 @@
 package com.jeromepaulos.hyaddons.features.dungeons;
 
-import com.jeromepaulos.hyaddons.config.Config;
 import com.jeromepaulos.hyaddons.utils.Utils;
+import com.jeromepaulos.hyaddons.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;

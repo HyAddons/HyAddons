@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 import java.util.Map;
 
-@Mixin(value = AbstractClientPlayer.class)
+@Mixin(value = AbstractClientPlayer.class, priority = 1001)
 public abstract class MixinAbstractClientPlayer extends EntityPlayer {
     public MixinAbstractClientPlayer(World worldIn, GameProfile gameProfileIn) {
         super(worldIn, gameProfileIn);
@@ -47,32 +47,23 @@ public abstract class MixinAbstractClientPlayer extends EntityPlayer {
         }
     }
 
-    /**
-     * Modified from Skytils under GPL 3.0 license
-     * https://github.com/Skytils/SkytilsMod/blob/1.x/LICENSE.md
-     */
     private boolean isSummonMob() {
         if(isSummonMob != null) return isSummonMob;
 
-        try {
-            if(this.getName().equals("Lost Adventurer")) {
-                Property texture = Iterables.getFirst(this.getGameProfile().getProperties().get("textures"), null);
-                if(texture != null) {
-                    isSummonMob = texture.getValue().equals(phoenixSkin);
-                }
-            }
-        } catch(Exception error) {
+        if(this.getName() != null && this.getName().equals("Lost Adventurer")) {
+            Property texture = Iterables.getFirst(this.getGameProfile().getProperties().get("textures"), null);
+            isSummonMob = texture != null && texture.getValue().equals(phoenixSkin);
+        } else {
             isSummonMob = false;
         }
 
-        if(isSummonMob == null) isSummonMob = false;
         if(this.isInvisible()) isSummonMob = false; // Exclude Shadow Assassins, which don't have nametags
 
         return isSummonMob;
     }
 
     private void setMobInfo() {
-        AxisAlignedBB playerBB = this.getEntityBoundingBox().expand(0.2d, 3, 0.2d);
+        AxisAlignedBB playerBB = this.getEntityBoundingBox().expand(0, 1, 0);
         List<Entity> nearbyArmorStands = this.getEntityWorld().getEntitiesInAABBexcluding(this, playerBB, entity -> {
             if(entity instanceof EntityArmorStand) {
                 EntityArmorStand stand = (EntityArmorStand) entity;
