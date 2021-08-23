@@ -1,10 +1,10 @@
 package com.jeromepaulos.hyaddons.config;
 
-import club.sk1er.vigilance.Vigilant;
-import club.sk1er.vigilance.data.*;
 import com.jeromepaulos.hyaddons.HyAddons;
 import com.jeromepaulos.hyaddons.gui.MoveWidgetGui;
 import com.jeromepaulos.hyaddons.utils.Utils;
+import gg.essential.vigilance.Vigilant;
+import gg.essential.vigilance.data.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -202,13 +202,6 @@ public class Config extends Vigilant {
             category = "Miscellaneous"
     )
     public static boolean fixSummonSkins = true;
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Safe Item Movement",
-            description = "Helps protect against accidentily dropping items\n&cUse at your own risk!",
-            category = "Miscellaneous"
-    )
-    public static boolean safeItemMovement = false;
 
     // Party Finder
     @Property(

@@ -72,10 +72,9 @@ public class HyAddons {
         // Misc
         MinecraftForge.EVENT_BUS.register(new ChatBridge());
         MinecraftForge.EVENT_BUS.register(new SpamHider());
-        /*MinecraftForge.EVENT_BUS.register(new CakeSoul());*/
+        //MinecraftForge.EVENT_BUS.register(new CakeSoul());
         MinecraftForge.EVENT_BUS.register(new Utils());
         MinecraftForge.EVENT_BUS.register(new ColoredNames());
-        MinecraftForge.EVENT_BUS.register(new SafeItemMovement());
         MinecraftForge.EVENT_BUS.register(new FixCoop());
 
         // Slayers
@@ -88,7 +87,7 @@ public class HyAddons {
         // Mining
         MinecraftForge.EVENT_BUS.register(new CoordDisplay());
         MinecraftForge.EVENT_BUS.register(new CommissionsWidget());
-        // MinecraftForge.EVENT_BUS.register(new WindCompassWidget());
+        //MinecraftForge.EVENT_BUS.register(new WindCompassWidget());
 
         config = new Config();
         config.preload();
